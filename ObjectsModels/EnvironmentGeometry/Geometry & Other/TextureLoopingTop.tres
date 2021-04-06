@@ -1,0 +1,49 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=2]
+
+[ext_resource path="res://Textures/dirt128_02.jpg" type="Texture" id=1]
+[ext_resource path="res://Textures/asphalt2_128.jpg" type="Texture" id=2]
+[ext_resource path="res://Textures/Splatmaps/defaultsplat.png" type="Texture" id=3]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+
+uniform sampler2D splatMap;
+uniform sampler2D grass;
+uniform sampler2D unused;
+uniform sampler2D dirt;
+uniform float scalex = 1;
+uniform float scaley = 1;
+uniform float loopingSplat = 0;
+
+void fragment() {
+ vec3 grassColour;
+ vec3 unusedColour;
+ vec3 dirtColour;
+ vec3 splatmapColour;
+
+ivec2 splatSize = textureSize(splatMap, 1);
+ vec2 splatSizeScaled =vec2(splatSize)/500.0f;
+
+ float loopingX = (1.0f-loopingSplat) * 1.0f + loopingSplat * scalex;
+ float loopingY = (1.0f-loopingSplat) * 1.0f + loopingSplat * scaley;
+
+ splatmapColour = texture(splatMap, vec2(UV.x* loopingX*splatSizeScaled.y, UV.y*loopingY*splatSizeScaled.x)).rgb;
+ 
+ grassColour = texture(grass, vec2(UV.x * scalex,UV.y*scaley)).rgb * splatmapColour.r;
+ unusedColour = texture(unused, vec2(UV.x * scalex,UV.y*scaley)).rgb * splatmapColour.g;
+ dirtColour = texture(dirt, vec2(UV.x * scalex,UV.y*scaley)).rgb * splatmapColour.b;
+ 
+vec3 outColour = (grassColour)+dirtColour;
+
+ ALBEDO = outColour*0.5f;
+ ROUGHNESS = 1.0f;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/scalex = 3.50263
+shader_param/scaley = 3.50263
+shader_param/loopingSplat = 0.0
+shader_param/splatMap = ExtResource( 3 )
+shader_param/grass = ExtResource( 2 )
+shader_param/dirt = ExtResource( 1 )

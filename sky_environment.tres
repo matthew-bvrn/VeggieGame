@@ -1,0 +1,16 @@
+[gd_resource type="Environment" load_steps=3 format=2]
+
+[sub_resource type="ViewportTexture" id=3]
+
+[sub_resource type="PanoramaSky" id=2]
+panorama = SubResource( 3 )
+
+[resource]
+background_mode = 2
+background_sky = SubResource( 2 )
+ambient_light_color = Color( 0.988285, 0.934593, 0.905307, 1 )
+ambient_light_energy = 0.6
+ambient_light_sky_contribution = 0.65
+fog_enabled = true
+fog_color = Color( 0.411765, 0.270588, 0.0352941, 1 )
+adjustment_saturation = 0.6

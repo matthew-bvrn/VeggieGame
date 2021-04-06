@@ -1,0 +1,11 @@
+{
+    "files.exclude": {
+        "**/.DS_Store": false,
+        "**/**.dae": true,
+        "**/**.glb": true,
+        "**/**.import": true,
+        "**/**.material": true,
+        "**/**.tres": true,
+        "**/**.tscn": true
+    }
+}

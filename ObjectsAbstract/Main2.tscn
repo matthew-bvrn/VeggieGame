@@ -1,0 +1,573 @@
+[gd_scene load_steps=43 format=2]
+
+[ext_resource path="res://ObjectsAbstract/Character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Materials/Splat.tres" type="Material" id=2]
+[ext_resource path="res://Shaders/pixelize.shader" type="Shader" id=3]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Objects/ChainlinkFence4.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ObjectsModels/ObjectsGameplay/PlantSpot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Buildings/House.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ObjectsModels/ObjectsPlaced/Crates.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ObjectsAbstract/PlantManager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Code/PlantSpotManager.cs" type="Script" id=9]
+[ext_resource path="res://ObjectsAbstract/UI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ObjectsAbstract/Inventory.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Textures/dirt128_02.jpg" type="Texture" id=12]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Buildings/Shantytown_section_b.tscn" type="PackedScene" id=13]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Buildings/Shantytown_section_a.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Textures/Splatmaps/defaultsplat.png" type="Texture" id=15]
+[ext_resource path="res://Textures/asphalt2_128.jpg" type="Texture" id=16]
+[ext_resource path="res://ObjectsModels/ObjectsPlaced/Lamppost2.tscn" type="PackedScene" id=17]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Geometry & Other/Floor.tscn" type="PackedScene" id=18]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Objects/ChainlinkFence2.tscn" type="PackedScene" id=19]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Buildings/Skyscraper.tscn" type="PackedScene" id=20]
+[ext_resource path="res://ObjectsModels/ObjectsPlaced/Barrel.tscn" type="PackedScene" id=21]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Buildings/WindowHalf.tscn" type="PackedScene" id=22]
+[ext_resource path="res://ObjectsModels/ObjectsPlaced/Tire.tscn" type="PackedScene" id=23]
+[ext_resource path="res://ObjectsModels/ObjectsPlaced/Tire_static.tscn" type="PackedScene" id=24]
+[ext_resource path="res://ObjectsModels/ObjectsPlaced/SodaCan.tscn" type="PackedScene" id=25]
+[ext_resource path="res://addons/Sky/Sky.tscn" type="PackedScene" id=26]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Geometry & Other/Stairs.tscn" type="PackedScene" id=27]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Geometry & Other/Floor_texturelooping.tscn" type="PackedScene" id=28]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Geometry & Other/Bridge_length4.tscn" type="PackedScene" id=29]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Geometry & Other/CubeLooping.tscn" type="PackedScene" id=30]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Objects/ChainlinkFence.tscn" type="PackedScene" id=31]
+[ext_resource path="res://ObjectsModels/EnvironmentGeometry/Objects/ChainlinkFence3.tscn" type="PackedScene" id=32]
+[ext_resource path="res://ObjectsAbstract/Selection.tscn" type="PackedScene" id=33]
+[ext_resource path="res://ObjectsAbstract/Shopkeeper.tscn" type="PackedScene" id=34]
+[ext_resource path="res://Code/DayNightCycle.cs" type="Script" id=35]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/size_x = 0.004
+shader_param/size_y = 0.004
+
+[sub_resource type="Shader" id=2]
+code = "shader_type spatial;
+
+uniform sampler2D splatMap;
+uniform sampler2D grass;
+uniform sampler2D unused;
+uniform sampler2D dirt;
+uniform float scalex = 1;
+uniform float scaley = 1;
+uniform float loopingSplat = 0;
+
+void fragment() {
+ vec3 grassColour;
+ vec3 unusedColour;
+ vec3 dirtColour;
+ vec3 splatmapColour;
+
+ivec2 splatSize = textureSize(splatMap, 1);
+ vec2 splatSizeScaled =vec2(splatSize)/500.0f;
+
+ float loopingX = (1.0f-loopingSplat) * 1.0f + loopingSplat * scalex;
+ float loopingY = (1.0f-loopingSplat) * 1.0f + loopingSplat * scaley;
+
+ splatmapColour = texture(splatMap, vec2(UV.x* loopingX*splatSizeScaled.y, UV.y*loopingY*splatSizeScaled.x)).rgb;
+ 
+ grassColour = texture(grass, vec2(UV.x * scalex,UV.y*scaley)).rgb * splatmapColour.r;
+ unusedColour = texture(unused, vec2(UV.x * scalex,UV.y*scaley)).rgb * splatmapColour.g;
+ dirtColour = texture(dirt, vec2(UV.x * scalex,UV.y*scaley)).rgb * splatmapColour.b;
+ 
+vec3 outColour = (grassColour)+dirtColour;
+
+ ALBEDO = outColour*0.5f;
+ ROUGHNESS = 1.0f;
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/scalex = 10.0472
+shader_param/scaley = 1.73913
+shader_param/loopingSplat = 1.0
+shader_param/splatMap = ExtResource( 15 )
+shader_param/grass = ExtResource( 16 )
+shader_param/dirt = ExtResource( 12 )
+
+[sub_resource type="Shader" id=4]
+code = "shader_type spatial;
+
+uniform sampler2D splatMap;
+uniform sampler2D grass;
+uniform sampler2D unused;
+uniform sampler2D dirt;
+uniform float scale = 1;
+
+void fragment() {
+ vec3 grassColour;
+ vec3 unusedColour;
+ vec3 dirtColour;
+ vec3 splatmapColour;
+
+ splatmapColour = texture(splatMap, vec2(1000.0f-UV.x, UV.y)).rgb;
+ 
+ grassColour = texture(grass, UV * scale).rgb * splatmapColour.r;
+ unusedColour = texture(unused, UV * scale).rgb * splatmapColour.g;
+ dirtColour = texture(dirt, UV * scale).rgb * splatmapColour.b;
+ 
+vec3 outColour = (grassColour)+dirtColour;
+
+ ALBEDO = outColour*0.5f;
+ ROUGHNESS = 1.0f;
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/scale = 3.5
+shader_param/splatMap = ExtResource( 15 )
+shader_param/grass = ExtResource( 16 )
+shader_param/dirt = ExtResource( 12 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 2 )
+shader_param/scalex = 10.7467
+shader_param/scaley = 2.27517
+shader_param/loopingSplat = 1.0
+shader_param/splatMap = ExtResource( 15 )
+shader_param/grass = ExtResource( 16 )
+shader_param/dirt = ExtResource( 12 )
+
+[sub_resource type="BoxShape" id=7]
+
+[node name="Root" type="Spatial"]
+
+[node name="Sky" parent="." instance=ExtResource( 26 )]
+color_sky = Color( 0.301961, 0.341176, 0.447059, 1 )
+hours = 10
+minutes = 51
+seconds = 55
+time_of_day_setup = 0.452731
+clouds_coverage = 0.8
+clouds_dens = 0.7136
+clouds_height = 0.5961
+moon_light = Color( 0.576471, 0.4, 0.0980392, 1 )
+sunset_light = Color( 0.905882, 0.47451, 0.239216, 1 )
+sunset_offset = 0.188224
+sunset_range = 0.263157
+clouds_tint = Color( 0.988285, 0.934593, 0.905307, 1 )
+night_level_light = 0.3
+wind_strength = 0.01
+
+[node name="CanvasLayer" type="ColorRect" parent="."]
+material = SubResource( 1 )
+rect_scale = Vector2( 10000, 10000 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.8363, 0, 0.293302 )
+collision_layer = 2
+collision_mask = 2
+collision/safe_margin = 0.01
+speed = 9.0
+
+[node name="Inventory" parent="Character" instance=ExtResource( 11 )]
+
+[node name="UI" parent="." instance=ExtResource( 10 )]
+
+[node name="PlantManager" parent="." instance=ExtResource( 8 )]
+
+[node name="Environment" type="Spatial" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.293299, 0, 12.8983 )
+
+[node name="Bridge_length4" parent="Environment" instance=ExtResource( 29 )]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 48.4101, -3.75487, 3.14602 )
+
+[node name="Stairs" parent="Environment" instance=ExtResource( 27 )]
+transform = Transform( 1, 0, 0, 0, 1.013, 0, 0, 0, 1.02, 25.4098, -2.83421, 8.42103 )
+
+[node name="House" parent="Environment" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -5.73781, 0, 12.4524 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="Skyscraper" parent="Environment" instance=ExtResource( 20 )]
+transform = Transform( 9.97879, 0, 0.650896, 0, 10, 0, -0.650896, 0, 9.97879, -140.691, 37.5426, 2.66488 )
+
+[node name="Skyscraper4" parent="Environment" instance=ExtResource( 20 )]
+transform = Transform( 7.57977, 0.00499887, -2.55873, 0.00538889, 7.99994, 0.0315927, 2.55873, -0.0316567, 7.5797, -103.906, 17.1713, -116.457 )
+
+[node name="Skyscraper3" parent="Environment" instance=ExtResource( 20 )]
+transform = Transform( 8.36707, 0, 5.47651, 0, 10, 0, -5.47651, 0, 8.36707, -180.853, 32.8171, -22.1165 )
+
+[node name="Skyscraper2" parent="Environment" instance=ExtResource( 20 )]
+transform = Transform( 7.34133, 0, -6.79006, 0, 10, 0, 6.79006, 0, 7.34133, -156.968, 32.8171, 30.7476 )
+
+[node name="Terrain" type="Spatial" parent="Environment"]
+
+[node name="Floor3" parent="Environment/Terrain" instance=ExtResource( 28 )]
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 2.2497e-06, 0, -5.77713, -25.5941, 0, -2.6181 )
+
+[node name="CSGBox" parent="Environment/Terrain/Floor3" index="1"]
+material = SubResource( 3 )
+
+[node name="Floor" parent="Environment/Terrain" instance=ExtResource( 18 )]
+collision_layer = 33
+
+[node name="Floor2" parent="Environment/Terrain" instance=ExtResource( 18 )]
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 4.411, 0, 37.358 )
+collision_layer = 33
+
+[node name="CSGBox" parent="Environment/Terrain/Floor2" index="1"]
+material = SubResource( 5 )
+
+[node name="Floor4" parent="Environment/Terrain" instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 7.07074e-07, 0, 1, 0, -4.36924e-06, 0, 6.17933, 37.3888, -3.84193, 9.60332 )
+
+[node name="CSGBox" parent="Environment/Terrain/Floor4" index="1"]
+transform = Transform( 12.9723, 0, -4.96913e-06, 0, 0.01, 0, -4.96914e-06, 0, 20, -1.24418, 0, -0.519252 )
+width = 0.921419
+
+[node name="Floor5" parent="Environment/Terrain" instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 7.07074e-07, 0, 1, 0, -4.36924e-06, 0, 6.17933, 49.3368, -3.84193, 9.60332 )
+
+[node name="CSGBox" parent="Environment/Terrain/Floor5" index="1"]
+transform = Transform( 26.1644, 0, 4.35864e-06, 0, 0.01, 0, 4.35865e-06, 0, 20, 4.82193, 0, -0.519248 )
+width = 0.921419
+material = SubResource( 6 )
+
+[node name="Floor9" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -20, 0, -6.51683e-06, 0, 0.01, 0, 6.51683e-06, 0, -20, 4.41109, 0, -42.5775 )
+layers = 2
+material = ExtResource( 2 )
+
+[node name="Plant Spots" type="Spatial" parent="Environment"]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -8.03309, 0.0423698, -12.9221 )
+script = ExtResource( 9 )
+
+[node name="PlantSpot" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.10773, 0.159494, 2.57166 )
+
+[node name="PlantSpot2" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.14463, 0.135998, -0.544693 )
+
+[node name="PlantSpot3" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.14463, 0.135998, -3.54469 )
+
+[node name="PlantSpot4" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144629, 0.135998, 2.45531 )
+
+[node name="PlantSpot5" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144221, 0.143977, -0.537012 )
+
+[node name="PlantSpot6" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144631, 0.135998, -3.54469 )
+
+[node name="PlantSpot7" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, 2.45531 )
+
+[node name="PlantSpot8" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, -0.544694 )
+
+[node name="PlantSpot9" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, -3.54469 )
+
+[node name="Selection" parent="Environment/Plant Spots" instance=ExtResource( 33 )]
+
+[node name="Fences" type="Spatial" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.09744, 0, 1.5234 )
+
+[node name="ChainlinkFence2_" parent="Environment/Fences" instance=ExtResource( 19 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.60137, 0.0787432, 30.111 )
+
+[node name="ChainlinkFence2_2" parent="Environment/Fences" instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.1798, 0.0787432, -21.4529 )
+
+[node name="ChainlinkFence4_1" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17752, 0.0904944, -21.4886 )
+
+[node name="ChainlinkFence4_5" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 31.1485, 0.0904944, -8.50936 )
+
+[node name="ChainlinkFence3" parent="Environment/Fences" instance=ExtResource( 32 )]
+
+[node name="ChainlinkFence4_2" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.7559, 0.0904944, 30.0648 )
+
+[node name="ChainlinkFence4_3" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.9911, 0.0904944, -8.64641 )
+
+[node name="ChainlinkFence4_4" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.9911, 0.0904944, 17.1411 )
+
+[node name="Chainlink fence" parent="Environment/Fences" instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7761, 0.0286541, -21.4708 )
+
+[node name="Chainlink fence2" parent="Environment/Fences" instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7761, 0.0286541, 30.106 )
+
+[node name="Shantytown" type="Node" parent="Environment"]
+
+[node name="WindowHalf" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.00182553, -1.29902, 4.36784e-08, 0, -5.68248e-08, -1, 0.0469645, 0.0504936, -1.6978e-09, -7.41792, 8.50068, 39.8381 )
+
+[node name="WindowHalf13" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.00182553, -1.29902, 4.36784e-08, 0, -5.68248e-08, -1, 0.0469645, 0.0504936, -1.6978e-09, 43.8359, 5.7332, -8.89456 )
+
+[node name="WindowHalf14" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.00656387, -1.28726, 4.3283e-08, 0, -5.68248e-08, -1, 0.0465394, 0.181554, -6.1046e-09, 79.093, 14.8307, -4.54486 )
+
+[node name="WindowHalf12" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.0469188, -0.0763735, 2.568e-09, 0, -5.68248e-08, -1, 0.0027612, 1.29775, -4.36359e-08, 40.6788, 10.0882, 35.0007 )
+
+[node name="WindowHalf15" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.0469188, -0.0763735, 2.568e-09, 0, -5.68248e-08, -1, 0.0027612, 1.29775, -4.36359e-08, 57.3068, 15.852, 16.6239 )
+
+[node name="WindowHalf9" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.0171668, -1.21018, 4.06913e-08, 0, -5.68248e-08, -1, 0.0437527, 0.474826, -1.59656e-08, 36.3216, 12.0884, 53.1285 )
+
+[node name="WindowHalf11" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.0281469, -1.0411, 3.50061e-08, 0, -5.68248e-08, -1, 0.0376398, 0.778531, -2.61774e-08, 39.9025, 19.1523, 66.2597 )
+
+[node name="WindowHalf10" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( -0.00170751, -1.29914, 4.36825e-08, 0, -5.68248e-08, -1, 0.046969, -0.0472287, 1.58803e-09, 19.0488, 12.0884, 44.6313 )
+
+[node name="WindowHalf8" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.0117131, -1.25898, 4.23322e-08, 0, -5.68248e-08, -1, 0.0455171, 0.323978, -1.08935e-08, -17.047, 23.1908, 80.1664 )
+
+[node name="WindowHalf6" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.00182553, -1.29902, 4.36784e-08, 0, -5.68248e-08, -1, 0.0469645, 0.0504936, -1.6978e-09, -22.7591, 9.04807, 43.8478 )
+
+[node name="WindowHalf7" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( -0.0332549, -0.918661, 3.08892e-08, 0, -5.68248e-08, -1, 0.0332131, -0.919816, 3.0928e-08, -39.845, 12.1872, 47.1492 )
+
+[node name="WindowHalf3" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.00182553, -1.29902, 4.36784e-08, 0, -5.68248e-08, -1, 0.0469645, 0.0504936, -1.6978e-09, -4.79333, 16.578, 57.3057 )
+
+[node name="WindowHalf4" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.00182553, -1.29902, 4.36784e-08, 0, -5.68248e-08, -1, 0.0469645, 0.0504936, -1.6978e-09, 12.1811, 20.0848, 61.701 )
+
+[node name="WindowHalf5" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.011802, -1.25835, 4.23109e-08, 0, -5.68248e-08, -1, 0.0454941, 0.326438, -1.09762e-08, 5.51268, 33.8897, 99.8049 )
+
+[node name="WindowHalf2" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( -0.0469645, -0.0504936, 1.6978e-09, 0, -5.68248e-08, -1, 0.00182554, -1.29902, 4.36784e-08, -28.5883, 3.00915, 31.9529 )
+
+[node name="WindowHalf16" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( -0.0469645, -0.0504936, 1.6978e-09, 0, -5.68248e-08, -1, 0.00182554, -1.29902, 4.36784e-08, -29.5909, 8.45907, 1.79129 )
+
+[node name="WindowHalf17" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( -0.0469645, -0.0504936, 1.6978e-09, 0, -5.68248e-08, -1, 0.00182554, -1.29902, 4.36784e-08, -48.8984, 20.2991, 28.2594 )
+
+[node name="ShantytownScale" type="Spatial" parent="Environment/Shantytown"]
+transform = Transform( -5.68248e-08, 0, 1, 0, 1.3, 0, -1.3, 0, -4.37114e-08, 2.18839, 0, 10.4728 )
+
+[node name="Shantytown chunk" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+
+[node name="Shantytown_section_b1" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk" instance=ExtResource( 14 )]
+transform = Transform( -1.31134e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.31134e-08, 10.6266, -1.06642, -33.1354 )
+
+[node name="Shantytown_section_b2" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk" instance=ExtResource( 13 )]
+transform = Transform( -1.31134e-08, 0, -0.35, 0, 0.3, 0, 0.3, 0, -1.5299e-08, -12.4619, 0.638267, -38.4182 )
+
+[node name="Shantytown_section_b3" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk" instance=ExtResource( 13 )]
+transform = Transform( -1.31134e-08, 0, -0.35, 0, 0.3, 0, 0.3, 0, -1.5299e-08, 11.312, 3.87021, -48.1972 )
+
+[node name="Shantytown_section_b4" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk" instance=ExtResource( 13 )]
+transform = Transform( -1.31134e-08, 0, -0.35, 0, 0.3, 0, 0.3, 0, -1.5299e-08, 29.0445, -2.85866, -41.5979 )
+
+[node name="Area" type="StaticBody" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk/Shantytown_section_b4"]
+transform = Transform( 25.5847, 0, -5.98722e-07, 0, 21.0217, 0, -4.39875e-07, 0, 13.8443, 0, 0, 5.65057 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape" type="CollisionShape" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk/Shantytown_section_b4/Area"]
+shape = SubResource( 7 )
+
+[node name="Shantytown_section_a1" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk" instance=ExtResource( 14 )]
+transform = Transform( -1.31134e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.31134e-08, 10.6266, -1.06642, -33.1354 )
+
+[node name="Shantytown_section_a2" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk" instance=ExtResource( 14 )]
+transform = Transform( -1.31134e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.31134e-08, -10.0714, 7.95612, -52.3577 )
+
+[node name="Shantytown chunk2" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+
+[node name="Shantytown_section_b6" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk2" instance=ExtResource( 13 )]
+transform = Transform( 0.3, 0, -1.42109e-14, 0, 0.3, 0, -1.68754e-14, 0, 0.35, -26.6102, 0.638267, 9.6265 )
+
+[node name="Shantytown_section_b7" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk2" instance=ExtResource( 13 )]
+transform = Transform( 0.3, 0, -1.42109e-14, 0, 0.3, 0, -1.68754e-14, 0, 0.35, -36.3892, 3.87021, -14.1474 )
+
+[node name="Shantytown_section_b8" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk2" instance=ExtResource( 13 )]
+transform = Transform( 0.3, 0, -1.42109e-14, 0, 0.3, 0, -1.68754e-14, 0, 0.35, -26.003, -2.07536, -31.7713 )
+
+[node name="Shantytown_section_a3" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk2" instance=ExtResource( 14 )]
+transform = Transform( 0.3, 0, 1.68754e-14, 0, 0.3, 0, -1.68754e-14, 0, 0.3, -23.7294, -1.06642, -13.462 )
+
+[node name="Shantytown_section_a5" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk2" instance=ExtResource( 14 )]
+transform = Transform( 7.45058e-09, 0, -0.3, 0, 0.3, 0, 0.3, 0, 7.45058e-09, -26.8115, -2.12923, 22.4789 )
+
+[node name="Shantytown_section_a4" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk2" instance=ExtResource( 14 )]
+transform = Transform( 0.3, 0, 1.68754e-14, 0, 0.3, 0, -1.68754e-14, 0, 0.3, -40.5497, 7.95612, 7.23601 )
+
+[node name="Shantytown chunk3" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50.392, 1.90735e-06, -45.1163 )
+
+[node name="Shantytown_section_b10" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk3" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 4.89106, 2.72989, 13.0237 )
+
+[node name="Shantytown_section_b11" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk3" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 12.7827, 5.96184, -11.4415 )
+
+[node name="Shantytown_section_a5" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk3" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, 23.8379, 1.02521, -1.18914 )
+
+[node name="Shantytown_section_a6" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk3" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, -4.2059, 10.0477, 2.19464 )
+
+[node name="Shantytown chunk4" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+transform = Transform( 0.622856, 0, 0.782336, 0, 1, 0, -0.782336, 0, 0.622856, -69.7051, 7.23915, -4.79373 )
+
+[node name="Shantytown_section_b10" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk4" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 4.89106, 2.72989, 13.0237 )
+
+[node name="Shantytown_section_b13" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk4" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, -14.5034, 7.48986, 20.5584 )
+
+[node name="Shantytown_section_b11" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk4" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 12.7827, 5.96184, -11.4415 )
+
+[node name="Shantytown_section_b12" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk4" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 32.0955, 0.0162671, -18.1863 )
+
+[node name="Shantytown_section_a5" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk4" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, 23.8379, 1.02521, -1.18914 )
+
+[node name="Shantytown_section_a6" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk4" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, -4.2059, 10.0477, 2.19464 )
+
+[node name="Shantytown chunk6" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+transform = Transform( 0.332408, 0, 0.943136, 0, 1, 0, -0.943136, 0, 0.332408, -52.5308, 5.30848, 42.287 )
+
+[node name="Shantytown_section_b10" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk6" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 4.89106, 2.72989, 13.0237 )
+
+[node name="Shantytown_section_b11" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk6" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 12.7827, 5.96184, -11.4415 )
+
+[node name="Shantytown_section_a5" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk6" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, 23.8379, 1.02521, -1.18914 )
+
+[node name="Shantytown_section_a6" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk6" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, -4.2059, 10.0477, 2.19464 )
+
+[node name="Shantytown chunk7" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+transform = Transform( -0.225495, 0, 0.974244, 0, 1, 0, -0.974244, 0, -0.225495, -37.5659, 2.82766, 84.2149 )
+
+[node name="Shantytown_section_b9" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk7" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, 23.8379, 5.32438, -1.18914 )
+
+[node name="Shantytown_section_b10" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk7" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 4.89106, 2.72989, 13.0237 )
+
+[node name="Shantytown_section_b11" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk7" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 12.7827, 5.96184, -11.4415 )
+
+[node name="Shantytown_section_a6" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk7" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, -4.2059, 10.0477, 2.19464 )
+
+[node name="Shantytown chunk8" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+transform = Transform( 0.35042, 0, 0.936593, 0, 1, 0, -0.936593, 0, 0.35042, -71.6039, 9.73428, 84.2149 )
+
+[node name="Shantytown_section_b10" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk8" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 4.89106, 2.72989, 13.0237 )
+
+[node name="Shantytown_section_a6" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk8" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, -4.2059, 10.0477, 2.19464 )
+
+[node name="Shantytown chunk5" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+transform = Transform( -0.594472, 0, 0.804116, 0, 1, 0, -0.804116, 0, -0.594472, -13.0132, -1.65183, 53.9199 )
+
+[node name="Shantytown_section_b10" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk5" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 1.49051, 0.815301, 17.6235 )
+
+[node name="Shantytown_section_b11" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk5" instance=ExtResource( 13 )]
+transform = Transform( 0.229014, 0, -0.226083, 0, 0.3, 0, 0.193785, 0, 0.267183, 10.6532, 4.24504, -13.0159 )
+
+[node name="Shantytown_section_b12" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk5" instance=ExtResource( 13 )]
+transform = Transform( -0.10937, 0, -0.325912, 0, 0.3, 0, 0.279353, 0, -0.127599, 27.2137, 1.35471, 2.53264 )
+
+[node name="Shantytown_section_a5" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk5" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, 17.9115, 1.2199, 0.298431 )
+
+[node name="Shantytown_section_a6" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk5" instance=ExtResource( 14 )]
+transform = Transform( 0.229014, 0, -0.193785, 0, 0.3, 0, 0.193785, 0, 0.229014, -4.2059, 6.63204, 2.19464 )
+
+[node name="Shantytown chunk9" type="Spatial" parent="Environment/Shantytown/ShantytownScale"]
+transform = Transform( -0.594472, 0, 0.804116, 0, 1, 0, -0.804116, 0, -0.594472, 14.2846, -1.65183, 53.9199 )
+
+[node name="Shantytown_section_b13" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk9" instance=ExtResource( 13 )]
+transform = Transform( -0.125401, 0, -0.381651, 0, 0.3, 0, 0.194359, 0, -0.245794, -1.55523, -0.220535, 0.408449 )
+
+[node name="Shantytown_section_a7" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk9" instance=ExtResource( 14 )]
+transform = Transform( -0.0787853, 0, -0.349006, 0, 0.3, 0, 0.22162, 0, -0.160607, -11.7567, 6.63204, -14.5784 )
+
+[node name="Objects" type="Node" parent="Environment"]
+
+[node name="Barrels" type="Spatial" parent="Environment/Objects"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.1604, 0, 17.776 )
+
+[node name="Barrel" parent="Environment/Objects/Barrels" instance=ExtResource( 21 )]
+transform = Transform( 0.781968, 0, 0.168896, 0, 0.7, 0, -0.168896, 0, 0.781968, -0.0713129, 0.91584, 0.0806713 )
+
+[node name="Barrel3" parent="Environment/Objects/Barrels" instance=ExtResource( 21 )]
+transform = Transform( 0.6516, 0, 0.46413, 0, 0.7, 0, -0.46413, 0, 0.6516, -0.834413, 0.91584, -1.86522 )
+
+[node name="Barrel2" parent="Environment/Objects/Barrels" instance=ExtResource( 21 )]
+transform = Transform( 0.613329, 0, 0.513642, 0, 0.7, 0, -0.513642, 0, 0.613329, 1.17894, 0.91584, -1.85523 )
+
+[node name="Lamppost" parent="Environment/Objects" instance=ExtResource( 17 )]
+transform = Transform( 0.582097, 0, -0.388798, 0, 0.7, 0, 0.388798, 0, 0.582097, -17.678, 0, 11.395 )
+
+[node name="Tire3" parent="Environment/Objects" instance=ExtResource( 24 )]
+transform = Transform( -6.55671e-08, 1.21877, 0.874419, 0, 0.874419, -1.21877, -1.5, -5.32741e-08, -3.82221e-08, -15.0827, 1.00696, 37.3108 )
+
+[node name="Tire" parent="Environment/Objects" instance=ExtResource( 23 )]
+transform = Transform( 0.719497, 0, 0.694495, 0, 1, 0, -0.694495, 0, 0.719497, 28.6982, 0.463589, 22.0092 )
+
+[node name="Tire2" parent="Environment/Objects" instance=ExtResource( 23 )]
+transform = Transform( 0.99733, 0, 0.0730293, 0, 1, 0, -0.0730293, 0, 0.99733, 28.8571, 1.36461, 22.1655 )
+
+[node name="Soda can" parent="Environment/Objects" instance=ExtResource( 25 )]
+transform = Transform( 0.66666, -0.738698, 0.0994506, 0.0102329, 0.142484, 0.989744, -0.745292, -0.658805, 0.102547, -15.922, 0.232173, 10.9365 )
+
+[node name="Soda can3" parent="Environment/Objects" instance=ExtResource( 25 )]
+transform = Transform( -0.602487, -0.789082, 0.119826, 0.0102329, 0.142484, 0.989744, -0.798063, 0.597535, -0.0777702, -16.4522, 0.232173, 12.1311 )
+
+[node name="Tire4" parent="Environment/Objects" instance=ExtResource( 23 )]
+transform = Transform( 0.796949, 0.00267207, 0.604041, -0.00271232, 0.999996, -0.000845093, -0.604041, -0.000964852, 0.796953, 29.1427, 2.29772, 22.6061 )
+
+[node name="Lamppost2" parent="Environment/Objects" instance=ExtResource( 17 )]
+transform = Transform( -0.660203, 0, 0.232662, 0, 0.7, 0, -0.232662, 0, -0.660203, 12.7203, 0, 1.68177 )
+
+[node name="Crates" parent="Environment/Objects" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 28.0264, 0, 13.3389 )
+
+[node name="Crates2" parent="Environment/Objects" instance=ExtResource( 7 )]
+transform = Transform( 0.306692, 0, -0.951809, 0, 1, 0, 0.951809, 0, 0.306692, -26.5691, 0, 21.6326 )
+
+[node name="SidedCube" parent="Environment" instance=ExtResource( 30 )]
+transform = Transform( -0.30278, 0, 0, 0, 0.177454, 0, 0, 0, 1.46741, 24.5285, -3.718, 40.1803 )
+
+[node name="SidedCube2" parent="Environment" instance=ExtResource( 30 )]
+transform = Transform( -0.30278, 0, 0, 0, 0.177454, 0, 0, 0, 1.46741, 24.5285, -3.718, -21.8516 )
+
+[node name="Shopkeeper" parent="." instance=ExtResource( 34 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.4413, -0.0607095, 9.25497 )
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource( 35 )
+
+[editable path="UI"]
+
+[editable path="Environment/Terrain/Floor3"]
+
+[editable path="Environment/Terrain/Floor2"]
+
+[editable path="Environment/Terrain/Floor4"]
+
+[editable path="Environment/Terrain/Floor5"]
+
+[editable path="Environment/Shantytown/ShantytownScale/Shantytown chunk/Shantytown_section_b4"]

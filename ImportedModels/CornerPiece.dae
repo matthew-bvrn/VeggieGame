@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.82.7 commit date:2020-03-12, commit time:05:06, hash:375c7dc4caf4</authoring_tool>
+    </contributor>
+    <created>2021-03-28T15:37:06</created>
+    <modified>2021-03-28T15:37:06</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="DirtWall-effect">
+      <profile_COMMON>
+        <newparam sid="dirt128_02_jpg-surface">
+          <surface type="2D">
+            <init_from>dirt128_02_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="dirt128_02_jpg-sampler">
+          <sampler2D>
+            <source>dirt128_02_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="dirt128_02_jpg-sampler" texcoord="UVMap"/>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="Grass_Floor-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0.8 0.8 0.8 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="dirt128_02_jpg" name="dirt128_02_jpg">
+      <init_from>dirt128_02.jpg</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="DirtWall-material" name="DirtWall">
+      <instance_effect url="#DirtWall-effect"/>
+    </material>
+    <material id="Grass_Floor-material" name="Grass Floor">
+      <instance_effect url="#Grass_Floor-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Plane_003-mesh" name="Plane.003">
+      <mesh>
+        <source id="Plane_003-mesh-positions">
+          <float_array id="Plane_003-mesh-positions-array" count="51">-1 -1 0 1 -1 0 -1 1 0 1 1 0 0.2648605 -0.7656313 -11.154 0.2648605 1.234369 -11.154 -0.4472422 -0.4655338 8.163456 -0.4472422 1.234369 8.163456 -0.1463174 -0.7668825 1.69635e-4 -0.6635109 -0.6888955 -11.154 1.336489 -0.6888955 -11.154 -0.6635109 0.02320712 8.163456 1.336489 0.02320712 8.163456 -1.735196 -1.176284 -11.154 0.2648036 -1.176284 -11.154 -1.735196 -0.4641809 8.163456 -0.4467799 -0.4641809 8.163456</float_array>
+          <technique_common>
+            <accessor source="#Plane_003-mesh-positions-array" count="17" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Plane_003-mesh-normals">
+          <float_array id="Plane_003-mesh-normals-array" count="21">0 0 1 0.9993213 0 0.03683811 0 -0.9993212 0.03683811 0 -0.9993213 0.03683811 0.9993213 0 0.03683811 0.9993213 0 0.03683811 0 -0.9993213 0.03683811</float_array>
+          <technique_common>
+            <accessor source="#Plane_003-mesh-normals-array" count="7" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Plane_003-mesh-map-0">
+          <float_array id="Plane_003-mesh-map-0-array" count="54">1 0 0 1 0 0 1.929046 1.812153 -0.4861054 1.812153 -0.9290463 0.7031579 2.285634 -0.6263199 -1.285634 1.62632 -1.285634 -0.6263199 -0.9573175 -0.7388566 1.275314 1.745057 -0.9299685 1.745057 1 0 1 1 0 1 -0.9290463 0.7031579 -0.9290463 -0.8121535 1.929046 -0.8121535 1.929046 -0.8121535 1.929046 1.812153 -0.9290463 0.7031579 2.285634 -0.6263199 2.285634 1.62632 -1.285634 1.62632 -0.9573175 -0.7388566 2.500472 -0.6335656 1.275314 1.745057</float_array>
+          <technique_common>
+            <accessor source="#Plane_003-mesh-map-0-array" count="27" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Plane_003-mesh-vertices">
+          <input semantic="POSITION" source="#Plane_003-mesh-positions"/>
+        </vertices>
+        <triangles material="DirtWall-material" count="7">
+          <input semantic="VERTEX" source="#Plane_003-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Plane_003-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Plane_003-mesh-map-0" offset="2" set="0"/>
+          <p>7 1 3 6 1 4 8 1 5 10 2 6 11 2 7 9 2 8 13 3 9 16 3 10 15 3 11 8 4 15 4 4 16 5 4 17 5 5 18 7 5 19 8 5 20 10 2 21 12 2 22 11 2 23 13 6 24 14 6 25 16 6 26</p>
+        </triangles>
+        <triangles material="Grass_Floor-material" count="2">
+          <input semantic="VERTEX" source="#Plane_003-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Plane_003-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Plane_003-mesh-map-0" offset="2" set="0"/>
+          <p>1 0 0 2 0 1 0 0 2 1 0 12 3 0 13 2 0 14</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Plane_003" name="Plane.003" type="NODE">
+        <matrix sid="transform">20 0 0 -6.729781 0 20 0 6.656884 0 0 1 1.49527 0 0 0 1</matrix>
+        <instance_geometry url="#Plane_003-mesh" name="Plane.003">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="DirtWall-material" target="#DirtWall-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+              <instance_material symbol="Grass_Floor-material" target="#Grass_Floor-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

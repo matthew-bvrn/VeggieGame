@@ -1,0 +1,241 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Lighting/Sunset2.tres" type="Environment" id=2]
+[ext_resource path="res://Shaders/pixelize.shader" type="Shader" id=3]
+[ext_resource path="res://Models/Fence4.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Models/PlantSpot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Models/House.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Models/Crates.tscn" type="PackedScene" id=7]
+[ext_resource path="res://PlantManager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Code/PlantSpotManager.cs" type="Script" id=9]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Inventory.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Textures/dirt128_02.jpg" type="Texture" id=12]
+[ext_resource path="res://Models/WallLow.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Models/WallHigh.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Models/CornerPiece.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Models/CornerPieceFlipped.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Models/Tree.tscn" type="PackedScene" id=17]
+[ext_resource path="res://GrassFloor.tres" type="Material" id=18]
+[ext_resource path="res://Floor2.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Models/Barrel.tscn" type="PackedScene" id=21]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/size_x = 0.004
+shader_param/size_y = 0.004
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 12 )
+uv1_scale = Vector3( 3, 6.5, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 12 )
+uv1_scale = Vector3( 0.25, 3.5, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0.168627 )
+
+[node name="Root" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 2 )
+
+[node name="UI" parent="." instance=ExtResource( 10 )]
+
+[node name="CanvasLayer" type="ColorRect" parent="."]
+material = SubResource( 1 )
+rect_scale = Vector2( 10000, 10000 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character" parent="." instance=ExtResource( 1 )]
+collision/safe_margin = 0.01
+speed = 9.0
+
+[node name="Inventory" parent="Character" instance=ExtResource( 11 )]
+
+[node name="PlantManager" parent="." instance=ExtResource( 8 )]
+
+[node name="Environment" type="Spatial" parent="."]
+
+[node name="Tree" parent="Environment" instance=ExtResource( 17 )]
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, -10.8841, 0.923519, -19.4226 )
+
+[node name="Tree6" parent="Environment" instance=ExtResource( 17 )]
+transform = Transform( 0.982218, 0, 0.187742, 0, 0.9, 0, -0.187742, 0, 0.982218, -12.4484, 0.923519, 2.46128 )
+
+[node name="Tree2" parent="Environment" instance=ExtResource( 17 )]
+transform = Transform( -0.144587, 0, -1.09046, 0, 1.1, 0, 1.09046, 0, -0.144587, -31.2079, 3.57912, -19.4226 )
+
+[node name="Tree3" parent="Environment" instance=ExtResource( 17 )]
+transform = Transform( 1.02396, 0, -0.232411, 0, 0.95, 0, 0.232411, 0, 1.02396, -28.1478, 3.57912, -26.9784 )
+
+[node name="Tree4" parent="Environment" instance=ExtResource( 17 )]
+transform = Transform( 0.0475172, 1.85563e-05, 1.09897, 0.00165459, 1.1, -9.01091e-05, -1.09897, 0.00165694, 0.0475171, -32.0299, 3.57912, -32.1138 )
+
+[node name="Tree5" parent="Environment" instance=ExtResource( 17 )]
+transform = Transform( 0.0561567, 1.85563e-05, 1.29879, 0.00195542, 1.1, -0.000106499, -1.29879, 0.00165694, 0.0561566, -41.5243, 10.0535, 31.5715 )
+
+[node name="House" parent="Environment" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -5.73781, 0, 12.4524 )
+
+[node name="Terrain" type="Spatial" parent="Environment"]
+
+[node name="Wall4" parent="Environment/Terrain" instance=ExtResource( 14 )]
+transform = Transform( -20, -1.46961e-09, 2.39078e-06, 0, 0.0033246, 9.95382, -6.51683e-06, 0.0045102, -7.33724, -12.4283, 1.235, -34.6034 )
+material = SubResource( 2 )
+
+[node name="Wall8" parent="Environment/Terrain" instance=ExtResource( 14 )]
+transform = Transform( 20, 1.07532e-09, -1.74934e-06, 0, 0.0033246, 9.95382, 4.76837e-06, -0.0045102, 7.33724, -12.4283, 1.235, 37.612 )
+material = SubResource( 2 )
+
+[node name="Wall5" parent="Environment/Terrain" instance=ExtResource( 14 )]
+transform = Transform( -20, -1.46961e-09, 2.39078e-06, 0, 0.0033246, 9.95382, -6.51683e-06, 0.0045102, -7.33724, -82.431, 1.235, -34.6034 )
+material = SubResource( 2 )
+
+[node name="Wall6" parent="Environment/Terrain" instance=ExtResource( 14 )]
+transform = Transform( -3.25841e-06, 0.0045102, -7.33724, 0, 0.0033246, 9.95382, 20, 7.34805e-10, -1.19539e-06, -82.431, 1.235, -23.8899 )
+material = SubResource( 2 )
+
+[node name="Floor" parent="Environment/Terrain" instance=ExtResource( 19 )]
+
+[node name="Floor6" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -20, 0, -6.51683e-06, 0, 0.01, 0, 6.51683e-06, 0, -20, 4.41109, 0, 37.358 )
+layers = 2
+material = ExtResource( 18 )
+
+[node name="Floor2" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -20, 0, -6.51683e-06, 0, 0.01, 0, 6.51683e-06, 0, -20, -37.5971, 2.827, -4.02977 )
+layers = 2
+material = ExtResource( 18 )
+
+[node name="Floor5" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -20, 0, -6.51683e-06, 0, 0.01, 0, 6.51683e-06, 0, -20, -37.5971, 2.827, 35.9701 )
+layers = 2
+material = ExtResource( 18 )
+
+[node name="Floor7" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -20, 0, -6.51683e-06, 0, 0.01, 0, 6.51683e-06, 0, -20, 2.38356, 2.827, 50.2381 )
+layers = 2
+depth = 2.01484
+material = ExtResource( 18 )
+
+[node name="Floor3" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -20, 0, -6.51683e-06, 0, 0.01, 0, 6.51683e-06, 0, -20, -37.597, 2.824, -44.02 )
+layers = 2
+material = ExtResource( 18 )
+
+[node name="Floor4" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -20, 0, -6.51683e-06, 0, 0.01, 0, 6.51683e-06, 0, -20, 2.40954, 2.827, -43.8816 )
+layers = 2
+material = ExtResource( 18 )
+
+[node name="Wall" parent="Environment/Terrain" instance=ExtResource( 13 )]
+transform = Transform( -20, 0, -6.51683e-06, -3.62654e-06, 0.00332458, 11.1298, 1.75596e-06, 0.00451021, -5.38899, 4.32544, 1.22867, -23.2996 )
+
+[node name="Wall7" parent="Environment/Terrain" instance=ExtResource( 13 )]
+transform = Transform( 20, 0, 0, 0, 0.0033246, 9.95382, 0, -0.0045102, 7.33725, 2.67162, 1.38234, 29.036 )
+
+[node name="Wall2" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -3.25841e-06, 0.0045102, -7.33723, 0, 0.0033246, 9.9538, 20, 7.34805e-10, -1.19539e-06, -16.5384, 1.40432, -2.52392 )
+width = 2.306
+depth = 0.287207
+material = SubResource( 3 )
+
+[node name="Wall3" type="CSGBox" parent="Environment/Terrain"]
+transform = Transform( -3.25841e-06, 0.0045102, -7.33723, 0, 0.0033246, 9.9538, 20, 7.34805e-10, -1.19539e-06, -16.5384, 1.40432, 43.6007 )
+width = 2.306
+depth = 0.287207
+material = SubResource( 3 )
+
+[node name="CornerPieceFlipped" parent="Environment/Terrain" instance=ExtResource( 16 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -33.0613, 1.29573, 47.2006 )
+
+[node name="CornerPiece" parent="Environment/Terrain" instance=ExtResource( 15 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -33.1039, 1.33781, -22.135 )
+
+[node name="Plant Spots" type="Spatial" parent="Environment"]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -7.18, 0, -10.955 )
+script = ExtResource( 9 )
+
+[node name="PlantSpot" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.10773, 0.159494, 2.57166 )
+
+[node name="PlantSpot2" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.14463, 0.135998, -0.544693 )
+
+[node name="PlantSpot3" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.14463, 0.135998, -3.54469 )
+
+[node name="PlantSpot4" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144629, 0.135998, 2.45531 )
+
+[node name="PlantSpot5" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144221, 0.143977, -0.537012 )
+
+[node name="PlantSpot6" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144631, 0.135998, -3.54469 )
+
+[node name="PlantSpot7" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, 2.45531 )
+
+[node name="PlantSpot8" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, -0.544694 )
+
+[node name="PlantSpot9" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, -3.54469 )
+
+[node name="Selection" type="CSGBox" parent="Environment/Plant Spots"]
+transform = Transform( 1.35, 0, -5.98789e-10, 0, 0.248, 0, 5.98789e-10, 0, 1.35, -0.180852, 0.290485, -0.619333 )
+material = SubResource( 4 )
+
+[node name="Fences" type="Spatial" parent="Environment"]
+
+[node name="Fences1" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -14.1838, 0, -14.8411 )
+
+[node name="Fences6" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -14.2237, 0, 11.0997 )
+
+[node name="Fences2" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -14.2092, 0, -1.96658 )
+
+[node name="Fences7" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -14.2092, 0, 20.7671 )
+
+[node name="Fences3" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -7.73573, 0, -21.4073 )
+
+[node name="Fences5" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 18.2371, 0, -21.4073 )
+
+[node name="Fences4" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.15615, 0, -21.4084 )
+
+[node name="Fences8" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -7.54813, 0, 27.3534 )
+
+[node name="Fences9" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 18.4247, 0, 27.3534 )
+
+[node name="Fences10" parent="Environment/Fences" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.34375, 0, 27.3523 )
+
+[node name="Crates" parent="Environment" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240804, 0, 16.7102 )
+
+[node name="Barrels" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.60151, 0, 22.7779 )
+
+[node name="Barrel" parent="Barrels" instance=ExtResource( 21 )]
+transform = Transform( 0.781968, 0, 0.168896, 0, 0.7, 0, -0.168896, 0, 0.781968, -0.0713129, 0.91584, 0.0806713 )
+
+[node name="Barrel3" parent="Barrels" instance=ExtResource( 21 )]
+transform = Transform( 0.6516, 0, 0.46413, 0, 0.7, 0, -0.46413, 0, 0.6516, -0.834413, 0.91584, -1.86522 )
+
+[node name="Barrel2" parent="Barrels" instance=ExtResource( 21 )]
+transform = Transform( 0.613329, 0, 0.513642, 0, 0.7, 0, -0.513642, 0, 0.613329, 1.17894, 0.91584, -1.85523 )

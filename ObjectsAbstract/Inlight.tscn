@@ -1,0 +1,76 @@
+[gd_scene format=2]
+
+[node name="Inlight" type="Spatial"]
+transform = Transform( 0.999997, -1.9374e-05, 0.00261802, 1.9374e-05, -0.999891, -0.0147997, 0.00261802, 0.0147997, -0.999887, -0.144156, 0.235806, 0.108754 )
+
+[node name="Spatial" type="Spatial" parent="."]
+
+[node name="SpotLight" type="SpotLight" parent="Spatial"]
+transform = Transform( 1, -9.09495e-11, -2.79397e-09, 3.63798e-12, 1, -9.31323e-09, 1.62981e-09, 9.31323e-10, 1, 1.1979, -0.685291, -0.00857735 )
+light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_energy = 6.88
+light_indirect_energy = 16.78
+spot_range = 5.5
+spot_attenuation = 3.86375
+spot_angle = 115.8
+spot_angle_attenuation = 2.2974
+
+[node name="Spatial2" type="Spatial" parent="."]
+
+[node name="SpotLight2" type="SpotLight" parent="Spatial2"]
+transform = Transform( 1, -9.45874e-11, -2.79397e-09, 7.27596e-12, 1, -9.31323e-09, 1.62981e-09, 9.31323e-10, 1, 0.540897, -0.685291, -0.00943613 )
+light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_energy = 6.88
+light_indirect_energy = 16.78
+spot_range = 5.5
+spot_attenuation = 3.86375
+spot_angle = 115.8
+spot_angle_attenuation = 2.2974
+
+[node name="Spatial3" type="Spatial" parent="."]
+
+[node name="SpotLight3" type="SpotLight" parent="."]
+transform = Transform( 1, -9.09495e-11, -2.79397e-09, 7.27596e-12, 1, -9.31323e-09, 1.62981e-09, 9.31323e-10, 1, 1.19789, -0.00358699, 0.00151396 )
+light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_energy = 6.88
+light_indirect_energy = 16.78
+spot_range = 5.5
+spot_attenuation = 3.86375
+spot_angle = 115.8
+spot_angle_attenuation = 2.2974
+
+[node name="Spatial4" type="Spatial" parent="."]
+
+[node name="SpotLight4" type="SpotLight" parent="Spatial4"]
+transform = Transform( 1, -9.45874e-11, -3.0268e-09, 3.63798e-12, 1, -9.31323e-09, 1.86265e-09, 9.31323e-10, 1, 0.540884, -0.00358699, 0.000654228 )
+light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_energy = 6.88
+light_indirect_energy = 16.78
+spot_range = 5.5
+spot_attenuation = 3.86375
+spot_angle = 115.8
+spot_angle_attenuation = 2.2974
+
+[node name="Spatial5" type="Spatial" parent="."]
+
+[node name="SpotLight5" type="SpotLight" parent="Spatial5"]
+transform = Transform( 1, -9.45874e-11, -3.0268e-09, 3.63798e-12, 1, -9.31323e-09, 1.86265e-09, 9.31323e-10, 1, 1.19787, 0.613188, 0.010643 )
+light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_energy = 6.88
+light_indirect_energy = 16.78
+spot_range = 5.5
+spot_attenuation = 3.86375
+spot_angle = 115.8
+spot_angle_attenuation = 2.2974
+
+[node name="Spatial6" type="Spatial" parent="."]
+
+[node name="SpotLight6" type="SpotLight" parent="Spatial6"]
+transform = Transform( 1, -9.09495e-11, -3.25963e-09, 7.27596e-12, 1, -9.31323e-09, 2.09548e-09, 9.31323e-10, 1, 0.540872, 0.613188, 0.00978328 )
+light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_energy = 6.88
+light_indirect_energy = 16.78
+spot_range = 5.5
+spot_attenuation = 3.86375
+spot_angle = 115.8
+spot_angle_attenuation = 2.2974

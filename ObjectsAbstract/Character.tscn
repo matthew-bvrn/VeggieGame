@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Code/CameraUser.cs" type="Script" id=1]
+[ext_resource path="res://Code/bounce.cs" type="Script" id=2]
+[ext_resource path="res://Textures/player high res.png" type="Texture" id=3]
+[ext_resource path="res://Code/Character.cs" type="Script" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.081, 0.856, 0.739 )
+
+[node name="char" type="KinematicBody"]
+collision/safe_margin = 31.031
+script = ExtResource( 4 )
+speed = 15.0
+
+[node name="RayCast1" type="RayCast" parent="."]
+transform = Transform( 1, 3.12095e-29, -8.47033e-22, 3.12095e-29, 1, -2.11758e-22, 0, 0, 1, 1.56047e-29, 0.1538, 0.527058 )
+enabled = true
+cast_to = Vector3( 0, -10, 0 )
+collision_mask = 32
+collide_with_areas = true
+
+[node name="RayCast2" type="RayCast" parent="."]
+transform = Transform( 1, 3.12095e-29, -8.47033e-22, 3.12095e-29, 1, -2.11758e-22, 0, 0, 1, 1.56047e-29, 0.1538, -0.560821 )
+enabled = true
+cast_to = Vector3( 0, -10, 0 )
+collision_mask = 32
+collide_with_areas = true
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.967937, -0.251192, -1.2412e-21, 0.251192, 0.967937, -3.22107e-22, 1.28231e-21, 1.03499e-27, 1, -0.122405, 0.733171, 0 )
+shape = SubResource( 1 )
+
+[node name="Follower" type="Spatial" parent="."]
+transform = Transform( 0.99999, -0.00453785, -1.42107e-14, 0.00453785, 0.99999, -6.44876e-17, 1.42109e-14, 0, 1, -0.105397, -0.0175962, 0 )
+
+[node name="Sprite3D" type="Sprite3D" parent="Follower"]
+transform = Transform( -4.66674e-08, -0.0891675, 0.286442, -1.45272e-08, 0.286442, 0.0891675, -0.3, 1.26715e-15, -4.88762e-08, -0.0675281, 0.718253, 9.59632e-16 )
+shaded = true
+double_sided = false
+texture = ExtResource( 3 )
+script = ExtResource( 2 )
+
+[node name="Camera2" type="Camera" parent="Follower"]
+transform = Transform( -1.19216e-07, -0.681577, 0.731747, -1.11043e-07, 0.731747, 0.681577, -1, -5.23221e-13, -1.6292e-07, 9.37263, 8.96992, -0.152589 )
+far = 300.0
+script = ExtResource( 1 )
+
+[node name="Camera3" type="Camera" parent="Follower"]
+transform = Transform( -1.83794e-05, -0.261685, 0.965154, 4.94846e-05, 0.965154, 0.261685, -1, 5.25699e-05, -4.7896e-06, 9.34668, 3.25288, -0.152589 )
+far = 300.0
+script = ExtResource( 1 )
+index = 1

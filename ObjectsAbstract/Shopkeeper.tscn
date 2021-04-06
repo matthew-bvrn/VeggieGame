@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Code/ShopkeeperManager.cs" type="Script" id=1]
+[ext_resource path="res://ObjectsAbstract/Selection.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Code/ShopManager.cs" type="Script" id=3]
+[ext_resource path="res://Textures/Shop.png" type="Texture" id=4]
+
+[node name="Shopkeeper" type="Spatial"]
+
+[node name="ShopkeeperManager" type="Spatial" parent="."]
+script = ExtResource( 1 )
+
+[node name="Selection" parent="ShopkeeperManager" instance=ExtResource( 2 )]
+
+[node name="ShopManager" type="Node" parent="ShopkeeperManager"]
+script = ExtResource( 3 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( -1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, -0.546836, 1.55168, -0.60762 )
+texture = ExtResource( 4 )

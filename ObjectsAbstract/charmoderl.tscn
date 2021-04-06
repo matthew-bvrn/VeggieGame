@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ImportedModels/charmoderl.dae" type="PackedScene" id=1]
+[ext_resource path="res://Materials/CharBack.material" type="Material" id=2]
+[ext_resource path="res://Materials/CharFront.material" type="Material" id=3]
+
+[node name="charmoderl" instance=ExtResource( 1 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.0158293, 0 )
+
+[node name="char cardboard" parent="." index="0"]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0.0237582, 0.455335, -0.0129634 )
+material/0 = ExtResource( 3 )
+material/1 = ExtResource( 2 )

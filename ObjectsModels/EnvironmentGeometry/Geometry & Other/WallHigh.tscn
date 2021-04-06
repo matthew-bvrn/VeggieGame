@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Textures/dirt128_02.jpg" type="Texture" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 0.25, 3.5, 0.5 )
+
+[node name="Wall" type="CSGBox"]
+transform = Transform( -20, -1.03129e-09, -1.10789e-06, -3.62654e-06, 0.00332458, 9.95384, -1.89994e-06, 0.00451021, -7.33721, 4.411, 1.235, -23.303 )
+width = 3.53873
+height = 0.002
+depth = 3.24411
+material = SubResource( 1 )

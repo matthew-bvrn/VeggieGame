@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ImportedModels/Bridge.tres" type="ArrayMesh" id=1]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 0.857065 )
+
+[node name="Bridge" type="StaticBody"]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0 )
+
+[node name="Cube" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5413, 0.154295, -0.0842525 )
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 11.9129, 0, 0, 0, 7.09011, 0, 0, 0, 4.30486, 0, 7.26298, -29.3181 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( 11.9129, 0, 0, 0, 7.09011, 0, 0, 0, 4.30486, 0, 7.26298, 29.2458 )
+shape = SubResource( 1 )

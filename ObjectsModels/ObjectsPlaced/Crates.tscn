@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ObjectsModels/ObjectsPlaced/Crate.tscn" type="PackedScene" id=1]
+
+
+[node name="Crates" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240804, 0, 9.8656 )
+
+[node name="Crate" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.398481, 0, 0.0348275, 0, 0.4, 0, -0.0348275, 0, 0.398481, -0.590285, 0, -0.951009 )
+
+[node name="Crate2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.391729, 0, -0.0809235, 0, 0.4, 0, 0.0809235, 0, 0.391729, -0.209883, 0, 0.89348 )
+
+[node name="Crate3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.260193, 0, -0.303808, 0, 0.4, 0, 0.303808, 0, 0.260193, 1.49356, 0, -0.883131 )
+
+[node name="Crate4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.175719, 0, -0.359337, 0, 0.4, 0, 0.359337, 0, 0.175719, 0.294654, 1.60064, -0.309836 )

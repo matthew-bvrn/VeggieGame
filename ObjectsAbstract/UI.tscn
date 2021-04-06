@@ -1,0 +1,197 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Code/InventoryText.cs" type="Script" id=1]
+[ext_resource path="res://Code/Selection.cs" type="Script" id=2]
+[ext_resource path="res://Code/InventorySlotPanel.cs" type="Script" id=3]
+[ext_resource path="res://UIDefault.tres" type="StyleBox" id=4]
+[ext_resource path="res://Code/ShopText.cs" type="Script" id=5]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+[sub_resource type="Theme" id=3]
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inventory" type="Node" parent="."]
+
+[node name="Panel" type="Panel" parent="Inventory"]
+anchor_bottom = 0.95
+margin_left = 20.0
+margin_top = 788.711
+margin_right = 100.0
+margin_bottom = 20.0
+theme = SubResource( 1 )
+custom_styles/panel = ExtResource( 4 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Inventory/Panel"]
+margin_right = 77.0
+margin_bottom = 79.0
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="Inventory"]
+material = SubResource( 2 )
+anchor_bottom = 0.95
+margin_left = 120.0
+margin_top = 788.711
+margin_right = 200.0
+margin_bottom = 19.4106
+theme = SubResource( 3 )
+custom_styles/panel = ExtResource( 4 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+index = 1
+
+[node name="Label" type="Label" parent="Inventory/Panel2"]
+margin_right = 77.0
+margin_bottom = 79.0
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel3" type="Panel" parent="Inventory"]
+material = SubResource( 2 )
+anchor_bottom = 0.95
+margin_left = 220.0
+margin_top = 788.711
+margin_right = 300.0
+margin_bottom = 19.411
+theme = SubResource( 3 )
+custom_styles/panel = ExtResource( 4 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+index = 2
+
+[node name="Label" type="Label" parent="Inventory/Panel3"]
+margin_right = 77.0
+margin_bottom = 79.0
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Selection" type="Node" parent="Inventory"]
+script = ExtResource( 2 )
+
+[node name="Shop" type="Node" parent="."]
+
+[node name="ItemPanel" type="Panel" parent="Shop"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.05
+anchor_right = 0.55
+anchor_bottom = 0.05
+margin_right = 25.15
+margin_bottom = 100.0
+theme = SubResource( 1 )
+custom_styles/panel = ExtResource( 4 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Shop/ItemPanel"]
+margin_right = 77.0
+margin_bottom = 79.0
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemPanel2" type="Panel" parent="Shop"]
+visible = false
+anchor_left = 0.58
+anchor_top = 0.05
+anchor_right = 0.6
+anchor_bottom = 0.05
+margin_right = 70.0599
+margin_bottom = 100.0
+theme = SubResource( 1 )
+custom_styles/panel = ExtResource( 4 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+index = 1
+
+[node name="Label" type="Label" parent="Shop/ItemPanel2"]
+margin_right = 77.0
+margin_bottom = 79.0
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemPanel3" type="Panel" parent="Shop"]
+visible = false
+anchor_left = 0.66
+anchor_top = 0.05
+anchor_right = 0.66
+anchor_bottom = 0.05
+margin_right = 100.0
+margin_bottom = 100.0
+theme = SubResource( 1 )
+custom_styles/panel = ExtResource( 4 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+index = 2
+
+[node name="Label" type="Label" parent="Shop/ItemPanel3"]
+margin_right = 77.0
+margin_bottom = 79.0
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Descriptions" type="Panel" parent="Shop"]
+visible = false
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.45
+anchor_bottom = 0.6
+custom_styles/panel = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Selection" type="Node" parent="Shop"]
+script = ExtResource( 2 )

@@ -1,0 +1,9 @@
+[gd_resource type="ProceduralSky" format=2]
+
+[resource]
+ground_energy = 0.0
+sun_color = Color( 0.996078, 0.176471, 0.176471, 1 )
+sun_latitude = 17.0
+sun_angle_max = 208.0
+sun_curve = 0.0812253
+sun_energy = 45.26

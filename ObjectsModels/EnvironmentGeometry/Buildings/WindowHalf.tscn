@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Textures/halfwindow60.png" type="Texture" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 1 )
+emission_enabled = true
+emission = Color( 1, 0.921569, 0.654902, 1 )
+emission_energy = 16.0
+emission_operator = 1
+emission_on_uv2 = false
+
+[node name="WindowHalf" type="CSGBox"]
+transform = Transform( 0.036, 0, 0, 0, -8.74228e-08, -1.5, 0, 2, -6.55671e-08, -4.05517, 2.97034, 3.68402 )
+material_override = SubResource( 1 )
+height = 1.0
+material = SubResource( 2 )
+
+[node name="Outlight" type="Spatial" parent="."]
+transform = Transform( -0.0363633, 0, 27.7778, -0.5, -2.18557e-08, -0.00065454, 2.91409e-08, -0.666667, 3.81478e-11, -25.0736, -0.115831, 0.209102 )
+
+[node name="SpotLight" type="OmniLight" parent="Outlight"]
+transform = Transform( 0.999999, -2.84217e-14, -6.98492e-10, -2.03288e-20, 1, 7.08803e-18, 3.49246e-10, -1.32349e-23, 0.999999, -0.241053, 0.216165, -0.00697899 )
+light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_energy = 5.38
+light_indirect_energy = 15.57
+light_specular = 0.53
+omni_range = 6.0
+omni_attenuation = 5.27803
