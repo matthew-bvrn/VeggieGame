@@ -23,8 +23,8 @@ material = SubResource( 2 )
 transform = Transform( -0.0363633, 0, 27.7778, -0.5, -2.18557e-08, -0.00065454, 2.91409e-08, -0.666667, 3.81478e-11, -25.0736, -0.115831, 0.209102 )
 
 [node name="SpotLight" type="OmniLight" parent="Outlight"]
-transform = Transform( 0.999999, -2.84217e-14, -6.98492e-10, -2.03288e-20, 1, 7.08803e-18, 3.49246e-10, -1.32349e-23, 0.999999, -0.241053, 0.216165, -0.00697899 )
-light_color = Color( 1, 0.921569, 0.654902, 1 )
+transform = Transform( 0.999999, -2.84217e-14, -6.98492e-10, -2.03288e-20, 1, 7.08799e-18, 3.49246e-10, 2.64698e-23, 0.999999, 0.0268831, 0.302295, -0.00662804 )
+light_color = Color( 0.909804, 0.796078, 0.411765, 1 )
 light_energy = 5.38
 light_indirect_energy = 15.57
 light_specular = 0.53

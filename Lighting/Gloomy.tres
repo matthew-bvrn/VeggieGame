@@ -1,19 +1,7 @@
-[gd_resource type="Environment" load_steps=2 format=2]
-
-[sub_resource type="ProceduralSky" id=1]
-sky_top_color = Color( 0.105882, 0.105882, 0.105882, 1 )
-sky_horizon_color = Color( 0.113725, 0.113725, 0.113725, 1 )
-sky_curve = 0.254558
-sky_energy = 0.1
-sun_color = Color( 1, 0.494118, 0, 1 )
-sun_latitude = 128.21
-sun_angle_max = 129.49
-sun_curve = 0.0329877
-sun_energy = 0.0
+[gd_resource type="Environment" format=2]
 
 [resource]
 background_mode = 2
-background_sky = SubResource( 1 )
 background_sky_custom_fov = 79.1
 background_sky_orientation = Basis( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07 )
 background_energy = 3.64

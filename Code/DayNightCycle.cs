@@ -3,103 +3,74 @@ using System;
 
 public class DayNightCycle : Node
 {
-  float transistionTime = 120f;
+  float transistionSpeed = 10f;
   float timePassed = 0f;
   Godot.Environment sunset;
   Godot.Environment night;
+  Godot.Environment day;
 
-  ProceduralSky mySky;
-  ProceduralSky sunsetSky;
-  ProceduralSky nightSky;
-  int countdown = 10;
+  int countdown = 10;	
+  float timeOfDay = 0.45f;
+  float sunsetEnd = 0.82f;
+  float sunsetMid = 0.75f;	
+  float sunsetStart = 0.65f;
 
   bool active = true;
 
   public override void _Ready()
   {
+	day = (Godot.Environment)GD.Load("res://Lighting/Daytime.tres");
 	sunset = (Godot.Environment)GD.Load("res://Lighting/Sunset2.tres");
 	night = (Godot.Environment)GD.Load("res://Lighting/Gloomy.tres");
 
-	//mySky = (ProceduralSky)Environment.BackgroundSky;
-	//sunsetSky = (ProceduralSky)sunset.BackgroundSky;
-	//	nightSky = (ProceduralSky)night.BackgroundSky;
+	UpdateEnvironment(day,night,0f);
+
   }
 
   public override void _Process(float delta)
   {
 	if (active)
 	{
-	  timePassed += delta;
-	  float percentage = Math.Min(1f, timePassed / transistionTime);
+	  timeOfDay += ((delta*transistionSpeed) / 1000f);
 
-/*
-	  countdown--;
-	  /*
-	  if (countdown == 0)
+	  float sunsetStartPercent = (-sunsetStart + timeOfDay) / (sunsetMid - sunsetStart);
+	  sunsetStartPercent = Math.Min(sunsetStartPercent, 1);
+	  sunsetStartPercent = Math.Max(sunsetStartPercent, 0);
+
+	  float sunsetEndPercent = (-sunsetMid + timeOfDay) / (sunsetEnd - sunsetMid);
+	  sunsetEndPercent = Math.Min(sunsetEndPercent, 1);
+	  sunsetEndPercent = Math.Max(sunsetEndPercent, 0);
+
+	  if ((sunsetStartPercent != 0 && sunsetStartPercent != 1) || (sunsetEndPercent != 0 && sunsetEndPercent != 1))
 	  {
-	  mySky.SkyTopColor = new Color(sunsetSky.SkyTopColor.r * (1 - percentage) + nightSky.SkyTopColor.r * percentage
-		  , sunsetSky.SkyTopColor.g * (1 - percentage) + nightSky.SkyTopColor.g * percentage
-		  , sunsetSky.SkyTopColor.b * (1 - percentage) + nightSky.SkyTopColor.b * percentage);
-
-	  mySky.SkyHorizonColor = new Color(sunsetSky.SkyHorizonColor.r * (1 - percentage) + nightSky.SkyHorizonColor.r * percentage
-		   , sunsetSky.SkyHorizonColor.g * (1 - percentage) + nightSky.SkyHorizonColor.g * percentage
-		   , sunsetSky.SkyHorizonColor.b * (1 - percentage) + nightSky.SkyHorizonColor.b * percentage);
-
-	  mySky.SkyCurve = sunsetSky.SkyCurve * (1 - percentage) + nightSky.SkyCurve * percentage;
-	  mySky.SkyEnergy = sunsetSky.SkyEnergy * (1 - percentage) + nightSky.SkyEnergy * percentage;
-
-	  mySky.SunColor = new Color(sunsetSky.SunColor.r * (1 - percentage) + nightSky.SunColor.r * percentage
-		   , sunsetSky.SunColor.g * (1 - percentage) + nightSky.SunColor.g * percentage
-		   , sunsetSky.SunColor.b * (1 - percentage) + nightSky.SunColor.b * percentage);
-
-	  mySky.SunLatitude = sunsetSky.SunLatitude * (1 - percentage) + nightSky.SunLatitude * percentage;
-	  mySky.SunCurve = sunsetSky.SunCurve * (1 - percentage) + nightSky.SunCurve * percentage;
-	  mySky.SunAngleMax = sunsetSky.SunAngleMax * (1 - percentage) + nightSky.SunAngleMax * percentage;
-	  mySky.SunAngleMin = sunsetSky.SunAngleMin * (1 - percentage) + nightSky.SunAngleMin * percentage;
-	  mySky.SunEnergy = sunsetSky.SunEnergy * (1 - percentage) + nightSky.SunEnergy * percentage;
-
-	  countdown = 60;
+		if (sunsetStartPercent != 0 && sunsetStartPercent != 1)
+		{
+		  UpdateEnvironment(day, sunset, sunsetStartPercent);
+		}
+		else
+		{
+		  UpdateEnvironment(sunset, night, sunsetEndPercent);
+		}
 	  }
-  
-	  // countdown--;
-	  if (countdown == 0)
-	  {
-		//GetParent().GetNode("Sky_texture").Call("set_sun_position", new Vector3(timePassed*10,timePassed*10, timePassed*10));
-		//	countdown = 60;
-	  }
-	  //Environment.BackgroundEnergy = sunset.BackgroundEnergy * (1 - percentage) + night.BackgroundEnergy * percentage;
-
-	  Environment.AmbientLightColor = new Color(sunset.AmbientLightColor.r * (1 - percentage) + night.AmbientLightColor.r * percentage
-		  , sunset.AmbientLightColor.g * (1 - percentage) + night.AmbientLightColor.g * percentage
-		  , sunset.AmbientLightColor.b * (1 - percentage) + night.AmbientLightColor.b * percentage);
-
-	  Environment.AmbientLightEnergy = sunset.AmbientLightEnergy * (1 - percentage) + night.AmbientLightEnergy * percentage;
-	  //Environment.AmbientLightSkyContribution = sunset.AmbientLightSkyContribution * (1 - percentage) + night.AmbientLightSkyContribution * percentage;
-*/
-	var environment = GetParent().GetNode("Sky").GetNode("WorldEnvironment") as WorldEnvironment;
-
-	  environment.Environment.FogColor = new Color(sunset.FogColor.r * (1 - percentage) + night.FogColor.r * percentage
-		  , sunset.FogColor.g * (1 - percentage) + night.FogColor.g * percentage
-		  , sunset.FogColor.b * (1 - percentage) + night.FogColor.b * percentage);
-
-	  environment.Environment.FogSunColor = new Color(sunset.FogSunColor.r * (1 - percentage) + night.FogSunColor.r * percentage
-		  , sunset.FogSunColor.g * (1 - percentage) + night.FogSunColor.g * percentage
-		  , sunset.FogSunColor.b * (1 - percentage) + night.FogSunColor.b * percentage);
-
-	  environment.Environment.FogSunAmount = 0 ;
-
-	  environment.Environment.FogDepthBegin = sunset.FogDepthBegin * (1 - percentage) + night.FogDepthBegin * percentage;
-	  environment.Environment.FogDepthEnd = sunset.FogDepthEnd * (1 - percentage) + night.FogDepthEnd * percentage;
-		
-
-			GetParent().GetNode("Sky").Call("set_time_of_day", 0.42-timePassed/(15f*transistionTime));
+	  GetParent().GetNode("Sky").Call("set_time_of_day", timeOfDay);
 	}
   }
 
-
-  public void _on_Sky_texture_sky_updated()
+  public void UpdateEnvironment(Godot.Environment start, Godot.Environment end, float percent)
   {
-	//GetParent().GetNode("Sky_texture").Call("copy_to_environment", Environment);
-  }
+	var environment = GetParent().GetNode("Sky").GetNode("WorldEnvironment") as WorldEnvironment;
 
+	environment.Environment.FogColor = new Color(start.FogColor.r * (1 - percent) + end.FogColor.r * percent
+	, start.FogColor.g * (1 - percent) + end.FogColor.g * percent
+	, start.FogColor.b * (1 - percent) + end.FogColor.b * percent);
+
+	environment.Environment.FogSunColor = new Color(start.FogSunColor.r * (1 - percent) + end.FogSunColor.r * percent
+	, start.FogSunColor.g * (1 - percent) + end.FogSunColor.g * percent
+	, start.FogSunColor.b * (1 - percent) + end.FogSunColor.b * percent);
+
+	environment.Environment.FogSunAmount = 0;
+
+	environment.Environment.FogDepthBegin = start.FogDepthBegin * (1 - percent) + end.FogDepthBegin * percent;
+	environment.Environment.FogDepthEnd = start.FogDepthEnd * (1 - percent) + end.FogDepthEnd * percent;
+  }
 }

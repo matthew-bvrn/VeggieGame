@@ -155,18 +155,24 @@ func set_time():
 	moon_pos = Vector3(0.0,1.0,0.0).normalized().rotated(Vector3(1.0,0.0,0.0).normalized(),phi) #Same for Moon
 	var moon_tex_pos: Vector3 = Vector3(0.0,1.0,0.0).normalized().rotated(Vector3(1.0,0.0,0.0).normalized(),(phi+PI)*0.5) #This magical formula for shader
 	call_deferred(\"set_call_deff_shader_params\", sky_tex.material, \"shader_param/MOON_TEX_POS\",moon_tex_pos)
-	var light_energy: float = smoothstep(sunset_offset,0.4,sun_pos.y);# light intensity depending on the height of the sun
+	var offset = 0;
+	if time_of_day>0.5:
+		offset = 0.3;	
+	var light_energy: float = smoothstep(sunset_offset,0.4,sun_pos.y+offset);# light intensity depending on the height of the sun
+	print(offset);
 	call_deferred(\"set_call_deff_shader_params\", sky_tex.material, \"shader_param/SUN_POS\",sun_pos)
 	call_deferred(\"set_call_deff_shader_params\", sky_tex.material, \"shader_param/MOON_POS\",moon_pos)
 	call_deferred(\"set_call_deff_shader_params\", clouds_tex.material, \"shader_param/SUN_POS\",-sun_pos)
 	call_deferred(\"set_call_deff_shader_params\", sky_tex.material, \"shader_param/attenuation\",clamp(light_energy,night_level_light*0.25,1.00))#clouds to bright with night_level_light
+	var sun_light_energy = clamp(light_energy, 0.0, 1.0)
 	light_energy = clamp(light_energy,night_level_light,1.00);
 	var sun_height: float = sun_pos.y-sunset_offset
 	if sun_height < sunset_range:
 		light_color=lerp(moon_light, sunset_light, clamp(sun_height/sunset_range,0.0,1.0))
 	else:
 		light_color=lerp(sunset_light, day_light, clamp((sun_height-sunset_range)/sunset_range,0.0,1.0))
-	if sun_pos.y < 0.0:
+	if sun_pos.y < -0.15:
+		sun_light_energy = 0;
 		if moon_pos.normalized() != Vector3.UP:# error  Up vector and direction between node origin and target are aligned, look_at() failed.
 			sun.look_at_from_position(moon_pos,Vector3.ZERO,Vector3.UP); # move sun to position and look at center scene from position
 	else:
@@ -174,7 +180,7 @@ func set_time():
 			sun.look_at_from_position(sun_pos,Vector3.ZERO,Vector3.UP); # move sun to position and look at center scene from position
 	set_clouds_tint(light_color) # comment this, if you need custom clouds tint
 	light_energy = light_energy *(1-clouds_coverage*0.5)
-	sun.light_energy = light_energy
+	sun.light_energy = sun_light_energy
 	sun.light_color = light_color
 	env.ambient_light_energy = light_energy
 	env.ambient_light_color = light_color
@@ -359,7 +365,7 @@ gradient = SubResource( 2 )
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 7 )
 shader_param/WIND = Vector3( 0.01, 0, 0 )
-shader_param/SUN_POS = Vector3( 0, -0.516667, 0.856187 )
+shader_param/SUN_POS = Vector3( 0, -0.523525, 0.85201 )
 shader_param/SIZE = 2.0
 shader_param/SOFTNESS = 1.0
 shader_param/COVERAGE = 0.34
@@ -389,9 +395,9 @@ gradient = SubResource( 7 )
 resource_local_to_scene = true
 shader = ExtResource( 6 )
 shader_param/SCATERRING = false
-shader_param/SUN_POS = Vector3( 0, 0.967138, -0.25425 )
-shader_param/MOON_POS = Vector3( 0, -0.967138, 0.25425 )
-shader_param/MOON_TEX_POS = Vector3( 0, -0.991751, 0.128183 )
+shader_param/SUN_POS = Vector3( 0, 0.523525, -0.85201 )
+shader_param/MOON_POS = Vector3( 0, -0.523525, 0.85201 )
+shader_param/MOON_TEX_POS = Vector3( 0, -0.87279, 0.488096 )
 shader_param/MOON_PHASE = -1.0
 shader_param/moon_radius = 0.05
 shader_param/sun_radius = 0.04
@@ -428,24 +434,24 @@ sky_density = 0.5
 sky_rayleig_coeff = 1.0
 sky_mie_coeff = 0.5
 anisotropicIntensity = 1.5
-hours = 13
-minutes = 1
-seconds = 5
-time_of_day_setup = 0.542419
+hours = 10
+minutes = 6
+seconds = 16
+time_of_day_setup = 0.421025
 clouds_dens = 0.1215
 clouds_height = 0.35
 clouds_quality = 100
 sun_radius = 0.04
 moon_radius = 0.05
 moon_phase = -1.0
-night_level_light = 0.1
+night_level_light = 0.2
 lighting_pos = Vector3( 0.57735, 0.57735, 0.57735 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 5 )
 
 [node name="Sun_Moon" type="DirectionalLight" parent="."]
-transform = Transform( -1, 8.45499e-08, -2.22273e-08, 0, 0.25425, 0.967138, 8.74228e-08, 0.967138, -0.25425, 0, 0.967138, -0.25425 )
+transform = Transform( -1, 4.5768e-08, -7.44851e-08, 0, 0.85201, 0.523525, 8.74228e-08, 0.523525, -0.85201, 0, 0.523525, -0.85201 )
 light_energy = 0.75
 shadow_enabled = true
 shadow_color = Color( 0.509804, 0.509804, 0.509804, 1 )

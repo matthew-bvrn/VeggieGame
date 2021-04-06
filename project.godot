@@ -21,8 +21,8 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/width=1497
-window/size/height=894
+window/size/width=1700
+window/size/height=1000
 
 [input]
 
@@ -126,6 +126,7 @@ camera_swap={
 
 [mono]
 
+debugger_agent/wait_for_debugger=true
 debugger_agent/wait_timeout=20000
 
 [rendering]

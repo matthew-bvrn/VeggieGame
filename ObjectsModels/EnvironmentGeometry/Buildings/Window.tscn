@@ -23,7 +23,7 @@ transform = Transform( -0.0363633, 0, 27.7778, -0.5, -2.18557e-08, -0.00065454, 
 
 [node name="SpotLight" type="OmniLight" parent="Light"]
 transform = Transform( 0.999999, -2.84217e-14, -6.98492e-10, -2.03288e-20, 1, 7.08806e-18, 3.49246e-10, -3.97047e-23, 0.999999, 0.000967979, 0, -0.739457 )
-light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_color = Color( 0.909804, 0.796078, 0.411765, 1 )
 light_energy = 2.34
 light_indirect_energy = 15.57
 light_specular = 0.53
@@ -35,7 +35,7 @@ transform = Transform( -0.0363633, 0, 27.7778, -0.5, -2.18557e-08, -0.00065454, 
 
 [node name="SpotLight" type="OmniLight" parent="Light2"]
 transform = Transform( 1, -2.4869e-14, 0, -2.71051e-20, 1, 2.79792e-17, 4.65661e-10, -3.97047e-23, 0.999999, 0.000967979, 0.218298, -0.739456 )
-light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_color = Color( 0.909804, 0.796078, 0.411765, 1 )
 light_energy = 4.57
 light_indirect_energy = 15.57
 light_specular = 0.53
@@ -47,7 +47,7 @@ transform = Transform( -0.0363633, 0, 27.7778, -0.5, -2.18557e-08, -0.00065454, 
 
 [node name="SpotLight" type="OmniLight" parent="Light3"]
 transform = Transform( 1, -2.4869e-14, 0, -2.71051e-20, 1, 2.79792e-17, 4.65661e-10, -3.97047e-23, 0.999999, 0.000967979, 0.218298, -0.739456 )
-light_color = Color( 1, 0.921569, 0.654902, 1 )
+light_color = Color( 0.909804, 0.796078, 0.411765, 1 )
 light_energy = 4.57
 light_indirect_energy = 15.57
 light_specular = 0.53
