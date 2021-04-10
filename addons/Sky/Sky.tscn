@@ -159,7 +159,6 @@ func set_time():
 	if time_of_day>0.5:
 		offset = 0.3;	
 	var light_energy: float = smoothstep(sunset_offset,0.4,sun_pos.y+offset);# light intensity depending on the height of the sun
-	print(offset);
 	call_deferred(\"set_call_deff_shader_params\", sky_tex.material, \"shader_param/SUN_POS\",sun_pos)
 	call_deferred(\"set_call_deff_shader_params\", sky_tex.material, \"shader_param/MOON_POS\",moon_pos)
 	call_deferred(\"set_call_deff_shader_params\", clouds_tex.material, \"shader_param/SUN_POS\",-sun_pos)
@@ -356,8 +355,8 @@ func _set_god_rays(on: bool):
 "
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0.00645161, 0.341935, 1 )
-colors = PoolColorArray( 0.968627, 0.247059, 0.0784314, 1, 0.239216, 0.635294, 0.984314, 1, 0.109804, 0.352941, 1, 1 )
+offsets = PoolRealArray( 0.00645161, 0.286792, 0.49434, 0.792453 )
+colors = PoolColorArray( 0.968627, 0.247059, 0.0784314, 1, 0.438515, 0.765625, 0.391785, 1, 0.239216, 0.635294, 0.984314, 1, 0.121094, 0.505615, 1, 1 )
 
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
@@ -365,7 +364,7 @@ gradient = SubResource( 2 )
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 7 )
 shader_param/WIND = Vector3( 0.01, 0, 0 )
-shader_param/SUN_POS = Vector3( 0, -0.523525, 0.85201 )
+shader_param/SUN_POS = Vector3( 0, 0.132453, -0.991189 )
 shader_param/SIZE = 2.0
 shader_param/SOFTNESS = 1.0
 shader_param/COVERAGE = 0.34
@@ -452,7 +451,6 @@ environment = ExtResource( 5 )
 
 [node name="Sun_Moon" type="DirectionalLight" parent="."]
 transform = Transform( -1, 4.5768e-08, -7.44851e-08, 0, 0.85201, 0.523525, 8.74228e-08, 0.523525, -0.85201, 0, 0.523525, -0.85201 )
-light_energy = 0.75
 shadow_enabled = true
 shadow_color = Color( 0.509804, 0.509804, 0.509804, 1 )
 directional_shadow_depth_range = 1

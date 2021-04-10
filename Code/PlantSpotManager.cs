@@ -16,8 +16,9 @@ public class PlantSpotManager : Spatial
   public override void _Process(float delta)
  {
 	
-	Vector3 characterTranslation = ((Spatial)GetTree().CurrentScene.GetNode("Character")).Translation;
-	float distanceToChar =  characterTranslation.DistanceTo(Translation);
+	Vector3 characterTranslation = ((Spatial)GetTree().CurrentScene.GetNode("Character")).GlobalTransform.origin;
+	float distanceToChar =  characterTranslation.DistanceTo(GlobalTransform.origin);
+	GD.Print(distanceToChar);
 	if(distanceToChar<7)
 	{
 		if(selectionBox.Visible == false)

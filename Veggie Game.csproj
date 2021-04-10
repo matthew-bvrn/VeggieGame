@@ -68,6 +68,8 @@
     <Compile Include="Code\CharAreaCollision.cs" />
     <Compile Include="Code\Character.cs" />
     <Compile Include="Code\Cube_Texturelooping.cs" />
+    <Compile Include="Code\CustomerUpdateSprite.cs" />
+    <Compile Include="Code\CustomerUpdateUIManager.cs" />
     <Compile Include="Code\DayNightCycle.cs" />
     <Compile Include="Code\Floor_Texturelooping.cs" />
     <Compile Include="Code\Inventory.cs" />
@@ -85,8 +87,9 @@
     <Compile Include="Code\SodaCan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Models\Plants\" />
+    <None Include="PlantData.json" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

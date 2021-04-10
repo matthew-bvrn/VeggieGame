@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Textures/Plants/Tomato/fruit_grid.png" type="Texture" id=1]
+[ext_resource path="res://Code/CustomerUpdateSprite.cs" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+resource_local_to_scene = true
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 64 )
+
+[node name="TextureRect" type="TextureRect"]
+margin_left = 1519.05
+margin_top = 1002.22
+margin_right = 1583.05
+margin_bottom = 1066.22
+texture = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

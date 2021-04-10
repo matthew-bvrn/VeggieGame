@@ -127,7 +127,7 @@ camera_swap={
 [mono]
 
 debugger_agent/wait_for_debugger=true
-debugger_agent/wait_timeout=20000
+debugger_agent/wait_timeout=9999999
 
 [rendering]
 

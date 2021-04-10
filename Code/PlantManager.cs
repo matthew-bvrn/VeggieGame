@@ -10,6 +10,8 @@ public class PlantManager : Node
 		public float growthTime {get; set;}
 		public string fruitName {get; set;}
 		public string seedName {get; set;}
+		public float basePrice {get; set;}
+		public int index{get; set;}
 	} 
 
 	public Dictionary<string, PlantType> plants;
@@ -36,6 +38,20 @@ public class PlantManager : Node
 		//GD.Assert(false, "Seedlookup failed: seeds with this name don't exist");
 		
 		return "";
+	}
+
+	public int PlantIndexFromFruitNameLookup(string name)
+	{
+		foreach (KeyValuePair<string, PlantType> plant in plants)
+		{
+			if (plant.Value.fruitName == name)
+			{
+				return plant.Value.index;
+			}
+		}
+		//GD.Assert(false, "Seedlookup failed: seeds with this name don't exist");
+
+		return -1;
 	}
 
 }

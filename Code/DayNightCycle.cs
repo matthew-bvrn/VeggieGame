@@ -3,37 +3,47 @@ using System;
 
 public class DayNightCycle : Node
 {
-  float transistionSpeed = 10f;
   float timePassed = 0f;
   Godot.Environment sunset;
   Godot.Environment night;
   Godot.Environment day;
 
   int countdown = 10;	
-  float timeOfDay = 0.45f;
+  
+	float dayStart = 0.35f;
+	float dayEnd = 0.85f;
+	float timeOfDay;
+	public static float dayLength = 600;
   float sunsetEnd = 0.82f;
   float sunsetMid = 0.75f;	
   float sunsetStart = 0.65f;
 
   bool active = true;
 
+	public float GetTimePassedToday()
+	{
+		return timePassed;
+  }
+
   public override void _Ready()
   {
-	day = (Godot.Environment)GD.Load("res://Lighting/Daytime.tres");
-	sunset = (Godot.Environment)GD.Load("res://Lighting/Sunset2.tres");
-	night = (Godot.Environment)GD.Load("res://Lighting/Gloomy.tres");
+		timeOfDay = dayStart;
 
-	UpdateEnvironment(day,night,0f);
+		day = (Godot.Environment)GD.Load("res://Lighting/Daytime.tres");
+		sunset = (Godot.Environment)GD.Load("res://Lighting/Sunset2.tres");
+		night = (Godot.Environment)GD.Load("res://Lighting/Gloomy.tres");
 
+		UpdateEnvironment(day,night,0f);
   }
 
   public override void _Process(float delta)
   {
 	if (active)
 	{
-	  timeOfDay += ((delta*transistionSpeed) / 1000f);
+	  timeOfDay += ((dayEnd-dayStart)/dayLength)*delta;
+		timePassed += delta;
 
-	  float sunsetStartPercent = (-sunsetStart + timeOfDay) / (sunsetMid - sunsetStart);
+		float sunsetStartPercent = (-sunsetStart + timeOfDay) / (sunsetMid - sunsetStart);
 	  sunsetStartPercent = Math.Min(sunsetStartPercent, 1);
 	  sunsetStartPercent = Math.Max(sunsetStartPercent, 0);
 

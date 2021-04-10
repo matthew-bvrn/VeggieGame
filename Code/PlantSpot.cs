@@ -20,19 +20,21 @@ public class PlantSpot : Spatial
 		ownedPlantName = name;
 		var scene = GD.Load<PackedScene>("res://ObjectsAbstract/Plant.tscn");
 
-		Node plantManager = GetTree().CurrentScene.GetNode("PlantManager");
-		float totalGrowthTime = ((PlantManager)plantManager).plants[ownedPlantName].growthTime;
-
+		PlantManager.PlantType plant = ((PlantManager)GetTree().CurrentScene.GetNode("PlantManager")).plants[ownedPlantName];
+		float totalGrowthTime = plant.growthTime;
+		int spriteIndex = plant.index;
+		
+		//Randomise the growth time a bit
 		var rng = new RandomNumberGenerator();
 		rng.Randomize();
 		float randomOffset = rng.RandfRange(-0.1f,0.1f);
-
 		totalGrowthTime = totalGrowthTime + randomOffset*totalGrowthTime;
 		
 		var spatialNode = scene.Instance();
 		
 		spatialNode.Set("totalGrowthTime", totalGrowthTime);
 		spatialNode.Set("plantName", ownedPlantName);
+		spatialNode.Set("spriteIndex", spriteIndex);
 
 		AddChild(spatialNode);
 		

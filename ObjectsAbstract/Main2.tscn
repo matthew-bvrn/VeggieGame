@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://ObjectsAbstract/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Materials/Splat.tres" type="Material" id=2]
@@ -35,13 +35,22 @@
 [ext_resource path="res://ObjectsAbstract/Selection.tscn" type="PackedScene" id=33]
 [ext_resource path="res://ObjectsAbstract/Shopkeeper.tscn" type="PackedScene" id=34]
 [ext_resource path="res://Code/DayNightCycle.cs" type="Script" id=35]
+[ext_resource path="res://MarketManager.tscn" type="PackedScene" id=36]
+[ext_resource path="res://Code/CustomerUpdateUIManager.cs" type="Script" id=37]
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.00645161, 0.341935, 1 )
+colors = PoolColorArray( 0.968627, 0.247059, 0.0784314, 1, 0.239216, 0.635294, 0.984314, 1, 0.109804, 0.352941, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 3 )
 shader_param/size_x = 0.004
 shader_param/size_y = 0.004
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id=4]
 code = "shader_type spatial;
 
 uniform sampler2D splatMap;
@@ -76,8 +85,8 @@ vec3 outColour = (grassColour)+dirtColour;
  ROUGHNESS = 1.0f;
 }"
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
 shader_param/scalex = 10.0472
 shader_param/scaley = 1.73913
 shader_param/loopingSplat = 1.0
@@ -85,7 +94,7 @@ shader_param/splatMap = ExtResource( 15 )
 shader_param/grass = ExtResource( 16 )
 shader_param/dirt = ExtResource( 12 )
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Shader" id=6]
 code = "shader_type spatial;
 
 uniform sampler2D splatMap;
@@ -112,15 +121,15 @@ vec3 outColour = (grassColour)+dirtColour;
  ROUGHNESS = 1.0f;
 }"
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 8 )
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
 shader_param/scale = 3.5
 shader_param/splatMap = ExtResource( 15 )
 shader_param/grass = ExtResource( 16 )
 shader_param/dirt = ExtResource( 12 )
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 4 )
 shader_param/scalex = 10.7467
 shader_param/scaley = 2.27517
 shader_param/loopingSplat = 1.0
@@ -128,30 +137,39 @@ shader_param/splatMap = ExtResource( 15 )
 shader_param/grass = ExtResource( 16 )
 shader_param/dirt = ExtResource( 12 )
 
-[sub_resource type="BoxShape" id=10]
+[sub_resource type="BoxShape" id=9]
 
 [node name="Root" type="Spatial"]
 
 [node name="Sky" parent="." instance=ExtResource( 26 )]
+clouds_resolution = 1024
+sky_gradient_texture = SubResource( 2 )
+SCATERRING = false
 color_sky = Color( 0.301961, 0.341176, 0.447059, 1 )
-hours = 9
-minutes = 8
-seconds = 22
-time_of_day_setup = 0.38082
+multiScatterPhase = 0.0
+hours = 11
+minutes = 39
+seconds = 55
+time_of_day_setup = 0.486055
 clouds_coverage = 0.8
+clouds_size = 2.0
+clouds_softness = 1.0
 clouds_dens = 0.7136
 clouds_height = 0.5961
 moon_light = Color( 0.545098, 0.490196, 0.4, 1 )
 sunset_light = Color( 0.905882, 0.47451, 0.239216, 1 )
 sunset_offset = 0.1
 sunset_range = 0.28092
-day_light = Color( 0.772549, 0.772549, 0.67451, 1 )
+day_light = Color( 0.933333, 0.823529, 0.737255, 1 )
 moon_tint = Color( 1, 1, 1, 1 )
-clouds_tint = Color( 0.7942, 0.479366, 0.288987, 1 )
+clouds_tint = Color( 0.933333, 0.823529, 0.737255, 1 )
+wind_dir = Vector2( 1, 0 )
 wind_strength = 0.01
 
 [node name="CanvasLayer" type="ColorRect" parent="."]
-material = SubResource( 7 )
+material = SubResource( 3 )
+margin_left = 1.0
+margin_right = 1.0
 rect_scale = Vector2( 10000, 10000 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -202,7 +220,7 @@ transform = Transform( 7.34133, 0, -6.79006, 0, 10, 0, 6.79006, 0, 7.34133, -156
 transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 2.2497e-06, 0, -5.77713, -25.5941, 0, -2.6181 )
 
 [node name="CSGBox" parent="Environment/Terrain/Floor3" index="1"]
-material = SubResource( 3 )
+material = SubResource( 5 )
 
 [node name="Floor" parent="Environment/Terrain" instance=ExtResource( 18 )]
 collision_layer = 33
@@ -212,7 +230,7 @@ transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 4.411, 
 collision_layer = 33
 
 [node name="CSGBox" parent="Environment/Terrain/Floor2" index="1"]
-material = SubResource( 9 )
+material = SubResource( 7 )
 
 [node name="Floor4" parent="Environment/Terrain" instance=ExtResource( 28 )]
 transform = Transform( 1, 0, 7.07074e-07, 0, 1, 0, -4.36924e-06, 0, 6.17933, 37.3888, -3.84193, 9.60332 )
@@ -227,7 +245,7 @@ transform = Transform( 1, 0, 7.07074e-07, 0, 1, 0, -4.36924e-06, 0, 6.17933, 49.
 [node name="CSGBox" parent="Environment/Terrain/Floor5" index="1"]
 transform = Transform( 26.1644, 0, 4.35864e-06, 0, 0.01, 0, 4.35865e-06, 0, 20, 4.82193, 0, -0.519248 )
 width = 0.921419
-material = SubResource( 6 )
+material = SubResource( 8 )
 
 [node name="Floor9" type="CSGBox" parent="Environment/Terrain"]
 transform = Transform( -20, 0, -6.51683e-06, 0, 0.01, 0, 6.51683e-06, 0, -20, 4.41109, 0, -42.5775 )
@@ -235,40 +253,41 @@ layers = 2
 material = ExtResource( 2 )
 
 [node name="Plant Spots" type="Spatial" parent="Environment"]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -8.03309, 0.0423698, -12.9221 )
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -6.98311, 0.0423698, -12.0435 )
 script = ExtResource( 9 )
 
 [node name="PlantSpot" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.10773, 0.159494, 2.57166 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3, 0.159, 3 )
 
 [node name="PlantSpot2" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.14463, 0.135998, -0.544693 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3, 0.135998, 0 )
 
 [node name="PlantSpot3" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.14463, 0.135998, -3.54469 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3, 0.136, -3 )
 
 [node name="PlantSpot4" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144629, 0.135998, 2.45531 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.136, 3 )
 
 [node name="PlantSpot5" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144221, 0.143977, -0.537012 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.144, 0 )
 
 [node name="PlantSpot6" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.144631, 0.135998, -3.54469 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.136, -3 )
 
 [node name="PlantSpot7" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, 2.45531 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 0.136, 3 )
 
 [node name="PlantSpot8" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, -0.544694 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 0.135998, 0 )
 
 [node name="PlantSpot9" parent="Environment/Plant Spots" instance=ExtResource( 5 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.85537, 0.135998, -3.54469 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 0.136, -3 )
 
 [node name="Selection" parent="Environment/Plant Spots" instance=ExtResource( 33 )]
+transform = Transform( 1.5, 0, -6.65321e-10, 0, 0.248, 0, 6.65321e-10, 0, 1.5, 0, 0.29, 0 )
 
 [node name="Fences" type="Spatial" parent="Environment"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.09744, 0, 1.5234 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.09744, -0.0720263, 1.5234 )
 
 [node name="ChainlinkFence2_" parent="Environment/Fences" instance=ExtResource( 19 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.60137, 0.0787432, 30.111 )
@@ -301,11 +320,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7761, 0.0286541, 30.106 )
 
 [node name="Shantytown" type="Node" parent="Environment"]
 
-[node name="WindowHalf" parent="Environment/Shantytown" instance=ExtResource( 22 )]
-transform = Transform( 0.00182553, -1.29902, 4.36784e-08, 0, -5.68248e-08, -1, 0.0469645, 0.0504936, -1.6978e-09, -7.41792, 8.50068, 39.8381 )
-
 [node name="WindowHalf13" parent="Environment/Shantytown" instance=ExtResource( 22 )]
 transform = Transform( 0.00182553, -1.29902, 4.36784e-08, 0, -5.68248e-08, -1, 0.0469645, 0.0504936, -1.6978e-09, 43.8359, 5.7332, -8.89456 )
+
+[node name="WindowHalf" parent="Environment/Shantytown" instance=ExtResource( 22 )]
+transform = Transform( 0.00182553, -1.29902, 4.36784e-08, 0, -5.68248e-08, -1, 0.0469645, 0.0504936, -1.6978e-09, -7.41792, 8.50068, 39.8381 )
 
 [node name="WindowHalf14" parent="Environment/Shantytown" instance=ExtResource( 22 )]
 transform = Transform( 0.00656387, -1.28726, 4.3283e-08, 0, -5.68248e-08, -1, 0.0465394, 0.181554, -6.1046e-09, 79.093, 14.8307, -4.54486 )
@@ -367,7 +386,7 @@ transform = Transform( -1.31134e-08, 0, -0.35, 0, 0.3, 0, 0.3, 0, -1.5299e-08, -
 transform = Transform( -1.31134e-08, 0, -0.35, 0, 0.3, 0, 0.3, 0, -1.5299e-08, 11.312, 3.87021, -48.1972 )
 
 [node name="Shantytown_section_b4" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk" instance=ExtResource( 13 )]
-transform = Transform( -1.31134e-08, 0, -0.35, 0, 0.3, 0, 0.3, 0, -1.5299e-08, 29.0445, -2.85866, -41.5979 )
+transform = Transform( -1.31134e-08, 0, -0.35, 0, 0.3, 0, 0.3, 0, -1.5299e-08, 29.0445, -2.85866, -42.6281 )
 
 [node name="Area" type="StaticBody" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk/Shantytown_section_b4"]
 transform = Transform( 25.5847, 0, -5.98722e-07, 0, 21.0217, 0, -4.39875e-07, 0, 13.8443, 0, 0, 5.65057 )
@@ -375,7 +394,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk/Shantytown_section_b4/Area"]
-shape = SubResource( 10 )
+shape = SubResource( 9 )
 
 [node name="Shantytown_section_a1" parent="Environment/Shantytown/ShantytownScale/Shantytown chunk" instance=ExtResource( 14 )]
 transform = Transform( -1.31134e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.31134e-08, 10.6266, -1.06642, -33.1354 )
@@ -558,8 +577,17 @@ transform = Transform( -0.30278, 0, 0, 0, 0.177454, 0, 0, 0, 1.46741, 24.5285, -
 [node name="Shopkeeper" parent="." instance=ExtResource( 34 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.4413, -0.0607095, 9.25497 )
 
-[node name="Node" type="Node" parent="."]
+[node name="MarketManager" parent="." instance=ExtResource( 36 )]
+
+[node name="TimeOfDayManager" type="Node" parent="."]
 script = ExtResource( 35 )
+
+[node name="CustomerUpdateUIManager" type="Control" parent="."]
+script = ExtResource( 37 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="EmitCustomerUpdateSprite" from="MarketManager" to="CustomerUpdateUIManager" method="_on_MarketManager_EmitCustomerUpdateSprite"]
 
 [editable path="UI"]
 
