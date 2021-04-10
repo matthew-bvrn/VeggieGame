@@ -30,7 +30,7 @@ public class CustomerUpdateUIManager : Node
 	int y = ((PlantManager)GetTree().CurrentScene.GetNode("PlantManager")).PlantIndexFromFruitNameLookup(name);
 	((AtlasTexture)node.Texture).Region = new Rect2(x, y*64, 64, 64);
 
-		node.Set("upwardsSpeed", rng.RandfRange(20f, 70));
+		node.Set("upwardsSpeed", rng.RandfRange(50f, 70));
 		node.Set("oscillationInterval", rng.RandfRange(1f, 2));
 		node.Set("oscillationWidth", rng.RandfRange(60,120));
 		node.Set("neutralHorizontalLocation", GetViewport().GetVisibleRect().Size.x - 200 + rng.RandfRange(-40, 40));
