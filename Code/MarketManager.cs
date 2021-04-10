@@ -142,7 +142,7 @@ public class MarketManager : Node
     UniformContinuousDistribution uniformDistWealth = new UniformContinuousDistribution(0.5, 1.5);
     UniformContinuousDistribution uniformDistItems = new UniformContinuousDistribution(0, runningSum);
     UniformDiscreteDistribution randomItem = new UniformDiscreteDistribution(0, itemsList.Count);
-    SkewNormalDistribution dist = new SkewNormalDistribution(DayNightCycle.dayLength*0.7, DayNightCycle.dayLength * 0.2, -2);
+    SkewNormalDistribution dist = new SkewNormalDistribution(DayNightCycle.dayLength*0.6, DayNightCycle.dayLength * 0.2, -1.5);
 
     for (int i = 0; i < customerCount; i++)
     {
