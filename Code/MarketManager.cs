@@ -357,7 +357,7 @@ public class MarketManager : Node
       {
         ProcessCustomer(customerSecondItemQueue.Peek(), customerSecondItemQueue.Peek().desiredItem2, 1);
 
-        if (customerFirstItemQueue.Peek().GotItem[1])
+        if (customerSecondItemQueue.Peek().GotItem[1])
         {
           EmitSignal(nameof(EmitCustomerUpdateSprite), customerSecondItemQueue.Peek().desiredItem2.GetName(), CustomerUpdateType.Found);
         }
