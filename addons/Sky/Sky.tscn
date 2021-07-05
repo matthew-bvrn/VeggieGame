@@ -7,7 +7,7 @@
 [ext_resource path="res://shaders/Sky.shader" type="Shader" id=6]
 [ext_resource path="res://shaders/Clouds.shader" type="Shader" id=7]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=17]
 script/source = "tool
 extends Spatial
 onready var env: Environment = $WorldEnvironment.environment
@@ -354,43 +354,43 @@ func _set_god_rays(on: bool):
 		remove_child(god_rays)
 "
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=18]
 offsets = PoolRealArray( 0.00645161, 0.286792, 0.49434, 0.792453 )
 colors = PoolColorArray( 0.968627, 0.247059, 0.0784314, 1, 0.438515, 0.765625, 0.391785, 1, 0.239216, 0.635294, 0.984314, 1, 0.121094, 0.505615, 1, 1 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture" id=19]
+gradient = SubResource( 18 )
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=20]
 shader = ExtResource( 7 )
 shader_param/WIND = Vector3( 0.01, 0, 0 )
-shader_param/SUN_POS = Vector3( 0, 0.132453, -0.991189 )
+shader_param/SUN_POS = Vector3( 0, -0.145538, 0.989353 )
 shader_param/SIZE = 2.0
 shader_param/SOFTNESS = 1.0
-shader_param/COVERAGE = 0.34
-shader_param/HEIGHT = 0.5961
-shader_param/THICKNESS = 18.0
-shader_param/ABSORPTION = 1.55
+shader_param/COVERAGE = 0.33433
+shader_param/HEIGHT = 1.0
+shader_param/THICKNESS = 18.081
+shader_param/ABSORPTION = 1.5581
 shader_param/STEPS = 100
 shader_param/Noise = ExtResource( 4 )
 
-[sub_resource type="ImageTexture" id=5]
+[sub_resource type="ImageTexture" id=21]
 flags = 4
 lossy_quality = 1.0
 flags = 4
 size = Vector2( 1024, 1024 )
 
-[sub_resource type="ViewportTexture" id=6]
+[sub_resource type="ViewportTexture" id=22]
 viewport_path = NodePath("clouds_viewport")
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=15]
 offsets = PoolRealArray( 0.00645161, 0.341935, 1 )
 colors = PoolColorArray( 0.968627, 0.247059, 0.0784314, 1, 0.239216, 0.635294, 0.984314, 1, 0.109804, 0.352941, 1, 1 )
 
-[sub_resource type="GradientTexture" id=8]
-gradient = SubResource( 7 )
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
 
-[sub_resource type="ShaderMaterial" id=9]
+[sub_resource type="ShaderMaterial" id=23]
 resource_local_to_scene = true
 shader = ExtResource( 6 )
 shader_param/SCATERRING = false
@@ -413,20 +413,20 @@ shader_param/color_sky = Color( 0.156863, 0.392157, 1, 1 )
 shader_param/moon_tint = Color( 1, 0.7, 0.35, 1 )
 shader_param/clouds_tint = Color( 1, 1, 1, 1 )
 shader_param/MOON = ExtResource( 2 )
-shader_param/cloud_env_texture = SubResource( 6 )
+shader_param/cloud_env_texture = SubResource( 22 )
 shader_param/lighting_texture = ExtResource( 3 )
-shader_param/sky_gradient_texture = SubResource( 8 )
+shader_param/sky_gradient_texture = SubResource( 16 )
 
-[sub_resource type="ImageTexture" id=10]
+[sub_resource type="ImageTexture" id=24]
 flags = 0
 lossy_quality = 1.0
 flags = 0
 size = Vector2( 1024, 1024 )
 
 [node name="Sky" type="Spatial"]
-script = SubResource( 1 )
+script = SubResource( 17 )
 sky_resolution = 1024
-sky_gradient_texture = SubResource( 3 )
+sky_gradient_texture = SubResource( 19 )
 color_sky = Color( 0.156863, 0.392157, 1, 1 )
 sky_tone = 3.5
 sky_density = 0.5
@@ -461,8 +461,8 @@ transparent_bg = true
 render_target_update_mode = 3
 
 [node name="clouds_texture" type="Sprite" parent="clouds_viewport"]
-material = SubResource( 4 )
-texture = SubResource( 5 )
+material = SubResource( 20 )
+texture = SubResource( 21 )
 centered = false
 
 [node name="sky_viewport" type="Viewport" parent="."]
@@ -470,8 +470,8 @@ size = Vector2( 1024, 1024 )
 render_target_update_mode = 3
 
 [node name="sky_texture" type="Sprite" parent="sky_viewport"]
-material = SubResource( 9 )
-texture = SubResource( 10 )
+material = SubResource( 23 )
+texture = SubResource( 24 )
 centered = false
 
 [node name="thunder" type="AudioStreamPlayer" parent="."]

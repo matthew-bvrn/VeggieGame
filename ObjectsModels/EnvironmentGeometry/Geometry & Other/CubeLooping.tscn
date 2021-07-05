@@ -93,7 +93,7 @@ shader_param/dirt = ExtResource( 1 )
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = SubResource( 2 )
-shader_param/scalex = -2.21818
+shader_param/scalex = -2.21817
 shader_param/scaley = -18.3426
 shader_param/loopingSplat = 0.0
 shader_param/splatMap = ExtResource( 7 )
@@ -102,7 +102,7 @@ shader_param/dirt = ExtResource( 1 )
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = SubResource( 2 )
-shader_param/scalex = -2.21818
+shader_param/scalex = -2.21817
 shader_param/scaley = -3.78475
 shader_param/loopingSplat = 0.0
 shader_param/splatMap = ExtResource( 7 )

@@ -1,10 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://Code/InventoryText.cs" type="Script" id=1]
 [ext_resource path="res://Code/Selection.cs" type="Script" id=2]
 [ext_resource path="res://Code/InventorySlotPanel.cs" type="Script" id=3]
 [ext_resource path="res://UIDefault.tres" type="StyleBox" id=4]
 [ext_resource path="res://Code/ShopText.cs" type="Script" id=5]
+[ext_resource path="res://Code/UiMenuHighlight.cs" type="Script" id=6]
+[ext_resource path="res://Textures/menuFinal.png" type="Texture" id=7]
+[ext_resource path="res://Code/UiMenuButton.cs" type="Script" id=8]
+[ext_resource path="res://Code/UiMenuMarketManager.cs" type="Script" id=9]
+[ext_resource path="res://Code/UiInventoryImage.cs" type="Script" id=10]
+[ext_resource path="res://Code/UiNumber.cs" type="Script" id=11]
 
 [sub_resource type="Theme" id=1]
 
@@ -12,9 +18,136 @@
 
 [sub_resource type="Theme" id=3]
 
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 7 )
+region = Rect2( 288, 0, 272, 308 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 78, 78 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 78, 78 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 78, 78 )
+
+[sub_resource type="StreamTexture" id=8]
+flags = 3
+load_path = "res://.import/fruit_grid.png-5fd114ac4f5514218cc4b1590d147122.s3tc.stex"
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 3
+atlas = SubResource( 8 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="StreamTexture" id=10]
+flags = 3
+load_path = "res://.import/fruit_grid.png-5fd114ac4f5514218cc4b1590d147122.s3tc.stex"
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 3
+atlas = SubResource( 10 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 3
+atlas = SubResource( 10 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 78, 78 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 3
+atlas = SubResource( 10 )
+region = Rect2( 0, 64, 64, 128 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 208, 82, 27 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 130, 86, 24 )
+
+[sub_resource type="StreamTexture" id=17]
+load_path = "res://.import/Numbers.png-1b229fdd24f3ca43f9e138c52b4170e9.stex"
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = SubResource( 17 )
+region = Rect2( 5, 0, 5, 9 )
+
+[sub_resource type="StreamTexture" id=19]
+load_path = "res://.import/Numbers.png-1b229fdd24f3ca43f9e138c52b4170e9.stex"
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = SubResource( 19 )
+region = Rect2( 10, 0, 5, 9 )
+
+[sub_resource type="StreamTexture" id=21]
+load_path = "res://.import/Numbers.png-1b229fdd24f3ca43f9e138c52b4170e9.stex"
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = SubResource( 21 )
+region = Rect2( 0, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = SubResource( 17 )
+region = Rect2( 5, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = SubResource( 19 )
+region = Rect2( 15, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = SubResource( 21 )
+region = Rect2( 0, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = SubResource( 17 )
+region = Rect2( 5, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = SubResource( 19 )
+region = Rect2( 15, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = SubResource( 21 )
+region = Rect2( 0, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = SubResource( 17 )
+region = Rect2( 5, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = SubResource( 19 )
+region = Rect2( 15, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = SubResource( 21 )
+region = Rect2( 0, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = SubResource( 17 )
+region = Rect2( 5, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = SubResource( 19 )
+region = Rect2( 15, 0, 5, 9 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = SubResource( 21 )
+region = Rect2( 0, 0, 5, 9 )
+
 [node name="UI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -0.445435
+margin_bottom = -0.445435
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -22,6 +155,7 @@ __meta__ = {
 [node name="Inventory" type="Node" parent="."]
 
 [node name="Panel" type="Panel" parent="Inventory"]
+visible = false
 anchor_bottom = 0.95
 margin_left = 20.0
 margin_top = 788.711
@@ -35,6 +169,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Inventory/Panel"]
+visible = false
 margin_right = 77.0
 margin_bottom = 79.0
 align = 1
@@ -46,6 +181,7 @@ __meta__ = {
 }
 
 [node name="Panel2" type="Panel" parent="Inventory"]
+visible = false
 material = SubResource( 2 )
 anchor_bottom = 0.95
 margin_left = 120.0
@@ -61,6 +197,7 @@ __meta__ = {
 index = 1
 
 [node name="Label" type="Label" parent="Inventory/Panel2"]
+visible = false
 margin_right = 77.0
 margin_bottom = 79.0
 align = 1
@@ -70,8 +207,10 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+m_index = 1
 
 [node name="Panel3" type="Panel" parent="Inventory"]
+visible = false
 material = SubResource( 2 )
 anchor_bottom = 0.95
 margin_left = 220.0
@@ -87,6 +226,7 @@ __meta__ = {
 index = 2
 
 [node name="Label" type="Label" parent="Inventory/Panel3"]
+visible = false
 margin_right = 77.0
 margin_bottom = 79.0
 align = 1
@@ -96,6 +236,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+m_index = 2
 
 [node name="Selection" type="Node" parent="Inventory"]
 script = ExtResource( 2 )
@@ -118,6 +259,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Shop/ItemPanel"]
+visible = false
 margin_right = 77.0
 margin_bottom = 79.0
 align = 1
@@ -145,6 +287,7 @@ __meta__ = {
 index = 1
 
 [node name="Label" type="Label" parent="Shop/ItemPanel2"]
+visible = false
 margin_right = 77.0
 margin_bottom = 79.0
 align = 1
@@ -195,3 +338,336 @@ __meta__ = {
 
 [node name="Selection" type="Node" parent="Shop"]
 script = ExtResource( 2 )
+
+[node name="Market" type="Node" parent="."]
+
+[node name="Root" type="Control" parent="Market"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="Market/Root"]
+margin_left = 74.6078
+margin_top = 106.356
+margin_right = 346.608
+margin_bottom = 414.356
+texture = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv0" type="TextureRect" parent="Market/Root"]
+margin_left = 90.141
+margin_top = 145.312
+margin_right = 168.141
+margin_bottom = 223.312
+texture = SubResource( 5 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv1" type="TextureRect" parent="Market/Root"]
+margin_left = 172.791
+margin_top = 144.717
+margin_right = 250.791
+margin_bottom = 222.717
+texture = SubResource( 6 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 1
+
+[node name="Inv2" type="TextureRect" parent="Market/Root"]
+margin_left = 255.738
+margin_top = 145.312
+margin_right = 333.738
+margin_bottom = 223.312
+texture = SubResource( 7 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 2
+
+[node name="Inv0Pic" type="TextureRect" parent="Market/Root"]
+margin_left = 95.5626
+margin_top = 152.062
+margin_right = 159.563
+margin_bottom = 216.062
+texture = SubResource( 9 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv1Pic" type="TextureRect" parent="Market/Root"]
+margin_left = 178.563
+margin_top = 152.062
+margin_right = 242.563
+margin_bottom = 216.062
+texture = SubResource( 11 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 1
+
+[node name="Inv2Pic" type="TextureRect" parent="Market/Root"]
+margin_left = 261.563
+margin_top = 152.062
+margin_right = 325.563
+margin_bottom = 216.062
+texture = SubResource( 12 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 2
+
+[node name="Slot" type="TextureRect" parent="Market/Root"]
+margin_left = 88.9518
+margin_top = 281.179
+margin_right = 166.952
+margin_bottom = 359.179
+texture = SubResource( 13 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 3
+
+[node name="SlotPic" type="TextureRect" parent="Market/Root"]
+margin_left = 95.2269
+margin_top = 287.851
+margin_right = 159.227
+margin_bottom = 351.851
+texture = SubResource( 14 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 3
+
+[node name="PriceHighlight" type="TextureRect" parent="Market/Root"]
+margin_left = 250.4
+margin_top = 280.17
+margin_right = 332.4
+margin_bottom = 320.17
+texture = SubResource( 15 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 4
+
+[node name="OK" type="TextureRect" parent="Market/Root"]
+margin_left = 245.878
+margin_top = 376.242
+margin_right = 331.878
+margin_bottom = 416.242
+texture = SubResource( 16 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 5
+
+[node name="NumInv0" type="Control" parent="Market/Root"]
+margin_left = 144.638
+margin_top = 234.578
+margin_right = 184.638
+margin_bottom = 274.578
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="100s" type="TextureRect" parent="Market/Root/NumInv0"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="10s" type="TextureRect" parent="Market/Root/NumInv0"]
+margin_left = 6.10339
+margin_top = 0.0701542
+margin_right = 46.1034
+margin_bottom = 40.0702
+texture = SubResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1s" type="TextureRect" parent="Market/Root/NumInv0"]
+margin_left = 11.6455
+margin_top = 0.0701542
+margin_right = 51.6455
+margin_bottom = 40.0702
+texture = SubResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumInv1" type="Control" parent="Market/Root"]
+margin_left = 228.374
+margin_top = 235.372
+margin_right = 268.374
+margin_bottom = 275.372
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 1
+
+[node name="100s" type="TextureRect" parent="Market/Root/NumInv1"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="10s" type="TextureRect" parent="Market/Root/NumInv1"]
+margin_left = 6.10339
+margin_top = 0.0701542
+margin_right = 46.1034
+margin_bottom = 40.0702
+texture = SubResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1s" type="TextureRect" parent="Market/Root/NumInv1"]
+margin_left = 11.6455
+margin_top = 0.0701542
+margin_right = 51.6455
+margin_bottom = 40.0702
+texture = SubResource( 25 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumInv2" type="Control" parent="Market/Root"]
+margin_left = 310.919
+margin_top = 234.578
+margin_right = 350.919
+margin_bottom = 274.578
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 2
+
+[node name="100s" type="TextureRect" parent="Market/Root/NumInv2"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="10s" type="TextureRect" parent="Market/Root/NumInv2"]
+margin_left = 6.10339
+margin_top = 0.0701542
+margin_right = 46.1034
+margin_bottom = 40.0702
+texture = SubResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1s" type="TextureRect" parent="Market/Root/NumInv2"]
+margin_left = 11.6455
+margin_top = 0.0701542
+margin_right = 51.6455
+margin_bottom = 40.0702
+texture = SubResource( 28 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumSlot" type="Control" parent="Market/Root"]
+margin_left = 226.243
+margin_top = 289.062
+margin_right = 266.243
+margin_bottom = 329.062
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 3
+
+[node name="100s" type="TextureRect" parent="Market/Root/NumSlot"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 29 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="10s" type="TextureRect" parent="Market/Root/NumSlot"]
+margin_left = 6.10339
+margin_top = 0.0701542
+margin_right = 46.1034
+margin_bottom = 40.0702
+texture = SubResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1s" type="TextureRect" parent="Market/Root/NumSlot"]
+margin_left = 11.6455
+margin_top = 0.0701542
+margin_right = 51.6455
+margin_bottom = 40.0702
+texture = SubResource( 31 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumPrice" type="Control" parent="Market/Root"]
+margin_left = 294.486
+margin_top = 288.513
+margin_right = 334.486
+margin_bottom = 328.513
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+m_index = 4
+
+[node name="100s" type="TextureRect" parent="Market/Root/NumPrice"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="10s" type="TextureRect" parent="Market/Root/NumPrice"]
+margin_left = 6.10339
+margin_top = 0.0701542
+margin_right = 46.1034
+margin_bottom = 40.0702
+texture = SubResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1s" type="TextureRect" parent="Market/Root/NumPrice"]
+margin_left = 11.6455
+margin_top = 0.0701542
+margin_right = 51.6455
+margin_bottom = 40.0702
+texture = SubResource( 34 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

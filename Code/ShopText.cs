@@ -15,8 +15,8 @@ public class ShopText : Label
   public void onShopChanged(Node node)
   {
 		ShopManager.ShopItem shopSlot =  ((ShopManager)node).itemsForSale[slot];
-	  Text = shopSlot.item.name;
-		if(shopSlot.item.name!="Empty")
+	  Text = shopSlot.item.m_name;
+		if(shopSlot.item.m_name!="Empty")
 		{
 			Text+=" "+shopSlot.quantity	+" £"+shopSlot.price;
 		}

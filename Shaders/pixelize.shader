@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
-uniform float size_x = 0.004;
-uniform float size_y = 0.004;
+uniform float size_x = 0.005;
+uniform float size_y = 0.0005;
 
 void fragment() {
 	vec2 uv = SCREEN_UV;

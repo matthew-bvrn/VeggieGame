@@ -23,7 +23,7 @@ public class bounce : Spatial
   //  // Called every frame. 'delta' is the elapsed time since the previous frame.
   public override void _Process(float delta)
   {
-	if (((Character)GetParent().GetParent()).state == Character.State.Active)
+	if (((Character)GetParent().GetParent()).m_state == Character.State.Active)
 	{
 	  raycast1.ForceRaycastUpdate();
 	  raycast2.ForceRaycastUpdate();
@@ -38,7 +38,7 @@ public class bounce : Spatial
 
 	  if (isBounce == true)
 	  {
-		Spatial parent = GetParent() as Spatial;
+		Spatial parent = GetParent().GetParent() as Spatial;
 		Vector3 closestCollision = raycast1.GetCollisionPoint();
 		Vector3 raycast2collision = raycast2.GetCollisionPoint();
 		if (raycast1.GetCollider() != raycast2.GetCollider())

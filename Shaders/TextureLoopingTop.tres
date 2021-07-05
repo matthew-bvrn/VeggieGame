@@ -41,8 +41,8 @@ vec3 outColour = (grassColour)+dirtColour;
 
 [resource]
 shader = SubResource( 1 )
-shader_param/scalex = 3.50263
-shader_param/scaley = 3.50263
+shader_param/scalex = 1.73913
+shader_param/scaley = 1.73913
 shader_param/loopingSplat = 0.0
 shader_param/splatMap = ExtResource( 3 )
 shader_param/grass = ExtResource( 2 )

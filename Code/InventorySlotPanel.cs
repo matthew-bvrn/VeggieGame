@@ -3,5 +3,6 @@ using System;
 
 public class InventorySlotPanel : Panel
 {
-   [Export] public int index;
+  //TODO remove
+  [Export] public int index;
 }

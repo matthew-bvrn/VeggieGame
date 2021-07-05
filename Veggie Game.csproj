@@ -67,24 +67,37 @@
     <Compile Include="Code\CameraUser.cs" />
     <Compile Include="Code\CharAreaCollision.cs" />
     <Compile Include="Code\Character.cs" />
+    <Compile Include="Code\IndexedObject.cs" />
+    <Compile Include="Code\MarketShopSpot.cs" />
     <Compile Include="Code\Cube_Texturelooping.cs" />
     <Compile Include="Code\CustomerUpdateSprite.cs" />
     <Compile Include="Code\CustomerUpdateUIManager.cs" />
     <Compile Include="Code\DayNightCycle.cs" />
     <Compile Include="Code\Floor_Texturelooping.cs" />
+    <Compile Include="Code\InteractableLocator.cs" />
     <Compile Include="Code\Inventory.cs" />
     <Compile Include="Code\InventorySlotPanel.cs" />
     <Compile Include="Code\InventoryText.cs" />
     <Compile Include="Code\MarketManager.cs" />
+    <Compile Include="Code\OwnMarketShop.cs" />
     <Compile Include="Code\Plant.cs" />
     <Compile Include="Code\PlantManager.cs" />
     <Compile Include="Code\PlantSpot.cs" />
     <Compile Include="Code\PlantSpotManager.cs" />
     <Compile Include="Code\Selection.cs" />
+    <Compile Include="Code\MarketShop.cs" />
     <Compile Include="Code\ShopkeeperManager.cs" />
     <Compile Include="Code\ShopManager.cs" />
     <Compile Include="Code\ShopText.cs" />
     <Compile Include="Code\SodaCan.cs" />
+    <Compile Include="Code\LightFlicker.cs" />
+    <Compile Include="Code\MarketShopManager.cs" />
+    <Compile Include="Code\UiInventoryImage.cs" />
+    <Compile Include="Code\UiMenuButton.cs" />
+    <Compile Include="Code\UiMenuHighlight.cs" />
+    <Compile Include="Code\UiMenuMarketManager.cs" />
+    <Compile Include="Code\UiMenuSelectableBase.cs" />
+    <Compile Include="Code\UiNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

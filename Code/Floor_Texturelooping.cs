@@ -13,8 +13,8 @@ public class Floor_Texturelooping : CSGBox
 		if(Engine.EditorHint)
 		{
 			mat = (ShaderMaterial)Material;
-			float x = ((Scale.x*((Spatial)GetParent()).Scale.x)/11.5f);
-			float y = ((Scale.z*((Spatial)GetParent()).Scale.z)/11.5f);
+			float x = (20*(Scale.x*((Spatial)GetParent()).Scale.x)/11.5f);
+			float y = (20*(Scale.z*((Spatial)GetParent()).Scale.z)/11.5f);
 			mat.SetShaderParam("scalex", y);
 			mat.SetShaderParam("scaley", x);
 		}

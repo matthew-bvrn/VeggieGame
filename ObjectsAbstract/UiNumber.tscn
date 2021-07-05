@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=2]
+
+[sub_resource type="CSharpScript" id=4]
+script/source = "using Godot;
+using System;
+
+public class UiNumber : Node
+{
+  int m_value = 0;
+  [Export]
+  public int m_index;
+
+  public override void _Ready()
+  {
+		SetValue(0);
+  }
+
+  public void UpdateValue(int index, int value)
+  {
+	if(m_index == index)
+	{
+	  SetValue(value);
+	}
+  }
+
+  void SetValue(int value)
+  {
+	m_value = value;
+	((AtlasTexture)((TextureRect)GetNode(\"1s\")).Texture).Region = new Rect2((value % 10) * 5, 0, 5, 9);
+	if(m_value > 9)
+	{
+	  ((TextureRect)GetNode(\"10s\")).Visible = true;
+	  ((AtlasTexture)((TextureRect)GetNode(\"10s\")).Texture).Region = new Rect2(((value/10) % 10) * 5, 0, 5, 9);
+	}
+	else
+	{
+	  ((TextureRect)GetNode(\"10s\")).Visible = false;
+	  ((TextureRect)GetNode(\"100s\")).Visible = false;
+	}
+	if (m_value > 99)
+	{
+	  ((TextureRect)GetNode(\"100s\")).Visible = true;
+	  ((AtlasTexture)((TextureRect)GetNode(\"100s\")).Texture).Region = new Rect2(((value / 100) % 10) * 5, 0, 5, 9);
+	}
+	else
+	{
+	  ((TextureRect)GetNode(\"100s\")).Visible = false;
+	}
+  }
+}
+"
+
+[sub_resource type="StreamTexture" id=13]
+load_path = "res://.import/Numbers.png-1b229fdd24f3ca43f9e138c52b4170e9.stex"
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = SubResource( 13 )
+region = Rect2( 5, 0, 5, 9 )
+
+[sub_resource type="StreamTexture" id=15]
+load_path = "res://.import/Numbers.png-1b229fdd24f3ca43f9e138c52b4170e9.stex"
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = SubResource( 15 )
+region = Rect2( 15, 0, 5, 9 )
+
+[sub_resource type="StreamTexture" id=17]
+load_path = "res://.import/Numbers.png-1b229fdd24f3ca43f9e138c52b4170e9.stex"
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = SubResource( 17 )
+region = Rect2( 0, 0, 5, 9 )
+
+[node name="NumInv0" type="Control"]
+margin_left = 144.638
+margin_top = 234.578
+margin_right = 184.638
+margin_bottom = 274.578
+script = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="100s" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="10s" type="TextureRect" parent="."]
+margin_left = 6.10339
+margin_top = 0.0701542
+margin_right = 46.1034
+margin_bottom = 40.0702
+texture = SubResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1s" type="TextureRect" parent="."]
+margin_left = 11.6455
+margin_top = 0.0701542
+margin_right = 51.6455
+margin_bottom = 40.0702
+texture = SubResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

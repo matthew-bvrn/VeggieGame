@@ -76,7 +76,7 @@ public class ShopManager : Node
 	GD.Print("Shop opened");
 	isActive = true;
 	selected = 0;
-	character.state = Character.State.Shop;
+	character.m_state = Character.State.Shop;
 	foreach (Node childNode in GetTree().CurrentScene.GetNode("UI").GetNode("Shop").GetChildren())
 	{
 	  if (childNode.Name.Contains("Panel") || childNode.Name.Contains("Descriptions"))
@@ -97,7 +97,7 @@ public class ShopManager : Node
 	{
 	  if (Input.IsActionJustPressed("ui_end"))
 	  {
-		character.state = Character.State.Active;
+		character.m_state = Character.State.Active;
 		isActive = false;
 
 		foreach (Node childNode in GetTree().CurrentScene.GetNode("UI").GetNode("Shop").GetChildren())
@@ -143,14 +143,14 @@ public class ShopManager : Node
 	{
 	  if (inventory.money > itemsForSale[selected].price)
 	  {
-		int index = (inventory.GetFreeSlotIndex(itemsForSale[selected].item.name));
+		int index = (inventory.GetFreeSlotIndex(itemsForSale[selected].item.m_name));
 		if (index > -1)
 		{
 		  inventory.money -= itemsForSale[selected].price;
 		  inventory.ChangeSlot(1, index, itemsForSale[selected].item);
 		  itemsForSale[selected].changeValue(-1);
 		  EmitSignal(nameof(ShopChanged), this);
-		  GD.Print("Bought ", itemsForSale[selected].item.name, " for £", itemsForSale[selected].price, ", money left £", inventory.money);
+		  GD.Print("Bought ", itemsForSale[selected].item.m_name, " for £", itemsForSale[selected].price, ", money left £", inventory.money);
 		}
 		else
 		{

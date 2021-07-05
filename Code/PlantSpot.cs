@@ -40,7 +40,7 @@ public class PlantSpot : Spatial
 		
 	}
 	
-	public void harvest()
+	public void Harvest()
 	{
 		ownedPlantName = "Empty";
 		((Node)GetChildren()[1]).QueueFree();

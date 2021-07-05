@@ -13,7 +13,7 @@ public class DayNightCycle : Node
 	float dayStart = 0.35f;
 	float dayEnd = 0.85f;
 	float timeOfDay;
-	public static float dayLength = 60; //final value will be 600
+	public static float dayLength = 600; //final value will be 600
   float sunsetEnd = 0.85f;
   float sunsetMid = 0.78f;	
   float sunsetStart = 0.75f;

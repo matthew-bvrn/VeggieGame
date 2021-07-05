@@ -18,13 +18,13 @@ public class CustomerUpdateUIManager : Node
 	switch(type)
 	{
 	  case MarketManager.CustomerUpdateType.Searching:
-		x = 0;
-		break;
-	  case MarketManager.CustomerUpdateType.Found:
 		x = 64;
 		break;
-	  case MarketManager.CustomerUpdateType.NotFound:
+	  case MarketManager.CustomerUpdateType.Found:
 		x = 128;
+		break;
+	  case MarketManager.CustomerUpdateType.NotFound:
+		x = 64*3;
 		break;
 	}
 	int y = ((PlantManager)GetTree().CurrentScene.GetNode("PlantManager")).PlantIndexFromFruitNameLookup(name);
