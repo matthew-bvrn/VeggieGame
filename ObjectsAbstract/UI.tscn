@@ -155,12 +155,12 @@ __meta__ = {
 [node name="Inventory" type="Node" parent="."]
 
 [node name="Panel" type="Panel" parent="Inventory"]
-visible = false
-anchor_bottom = 0.95
-margin_left = 20.0
-margin_top = 788.711
-margin_right = 100.0
-margin_bottom = 20.0
+anchor_left = 0.01
+anchor_top = 0.901
+anchor_right = 0.01
+anchor_bottom = 0.901
+margin_right = 80.0
+margin_bottom = 80.0
 theme = SubResource( 1 )
 custom_styles/panel = ExtResource( 4 )
 script = ExtResource( 3 )
@@ -169,7 +169,6 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Inventory/Panel"]
-visible = false
 margin_right = 77.0
 margin_bottom = 79.0
 align = 1
@@ -181,13 +180,13 @@ __meta__ = {
 }
 
 [node name="Panel2" type="Panel" parent="Inventory"]
-visible = false
 material = SubResource( 2 )
-anchor_bottom = 0.95
-margin_left = 120.0
-margin_top = 788.711
-margin_right = 200.0
-margin_bottom = 19.4106
+anchor_left = 0.07
+anchor_top = 0.901
+anchor_right = 0.07
+anchor_bottom = 0.901
+margin_right = 80.0
+margin_bottom = 80.0
 theme = SubResource( 3 )
 custom_styles/panel = ExtResource( 4 )
 script = ExtResource( 3 )
@@ -197,7 +196,6 @@ __meta__ = {
 index = 1
 
 [node name="Label" type="Label" parent="Inventory/Panel2"]
-visible = false
 margin_right = 77.0
 margin_bottom = 79.0
 align = 1
@@ -210,13 +208,13 @@ __meta__ = {
 m_index = 1
 
 [node name="Panel3" type="Panel" parent="Inventory"]
-visible = false
 material = SubResource( 2 )
-anchor_bottom = 0.95
-margin_left = 220.0
-margin_top = 788.711
-margin_right = 300.0
-margin_bottom = 19.411
+anchor_left = 0.13
+anchor_top = 0.901
+anchor_right = 0.13
+anchor_bottom = 0.901
+margin_right = 80.0
+margin_bottom = 80.0
 theme = SubResource( 3 )
 custom_styles/panel = ExtResource( 4 )
 script = ExtResource( 3 )
@@ -226,7 +224,6 @@ __meta__ = {
 index = 2
 
 [node name="Label" type="Label" parent="Inventory/Panel3"]
-visible = false
 margin_right = 77.0
 margin_bottom = 79.0
 align = 1

@@ -409,24 +409,6 @@ m_speed = 9.0
 
 [node name="UI" parent="." instance=ExtResource( 10 )]
 
-[node name="Panel" parent="UI/Inventory" index="0"]
-visible = true
-
-[node name="Label" parent="UI/Inventory/Panel" index="0"]
-visible = true
-
-[node name="Panel2" parent="UI/Inventory" index="1"]
-visible = true
-
-[node name="Label" parent="UI/Inventory/Panel2" index="0"]
-visible = true
-
-[node name="Panel3" parent="UI/Inventory" index="2"]
-visible = true
-
-[node name="Label" parent="UI/Inventory/Panel3" index="0"]
-visible = true
-
 [node name="PlantManager" parent="." instance=ExtResource( 8 )]
 
 [node name="Environment" type="Spatial" parent="."]
